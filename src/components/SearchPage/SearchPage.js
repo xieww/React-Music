@@ -1,6 +1,19 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { SearchBar } from "react-weui";
+import { 
+        SearchBar ,    
+        Panel,
+        PanelHeader,
+        PanelBody,
+        PanelFooter,
+        MediaBox,
+        MediaBoxHeader,
+        MediaBoxBody,
+        MediaBoxTitle,
+        MediaBoxDescription,
+        Cell,
+        CellBody,
+        CellFooter} from "react-weui";
 //import styles
 import "weui";
 import "react-weui/build/packages/react-weui.css";
