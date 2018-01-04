@@ -19,9 +19,10 @@ import "weui";
 import "react-weui/build/packages/react-weui.css";
 import './SearchPage.less'
 
+const appMsgIcon = (<img src="https://y.gtimg.cn/music/photo_new/T002R68x68M000000y5gq7449K9I.jpg?max_age=2592000" />);
 class SearchPage extends Component {
   state = {
-    searchText: "",
+    searchText: "a",
     results: []
   };
 
@@ -37,6 +38,7 @@ class SearchPage extends Component {
       searchText: text
     });
   }
+
   render() {
     return (
       <div className="search_main">
@@ -59,6 +61,30 @@ class SearchPage extends Component {
                 </div>
             </div>
         </Router>
+        <Panel style={{display: this.state.searchText ? null: 'none', marginTop: 0}}>
+                    <PanelHeader>
+                        Female Name Search
+                    </PanelHeader>
+                    <PanelBody>
+                        {
+                            this.state.results.length > 0 ?
+                                this.state.results.map((item,i)=>{
+                                    return (
+                                        <MediaBox key={i} type="appmsg" href="javascript:void(0);">
+                                            <MediaBoxHeader>{appMsgIcon}</MediaBoxHeader>
+                                            <MediaBoxBody>
+                                                <MediaBoxTitle>{item}</MediaBoxTitle>
+                                                <MediaBoxDescription>
+                                                    You may like this name.
+                                                </MediaBoxDescription>
+                                            </MediaBoxBody>
+                                        </MediaBox>
+                                    )
+                                })
+                                : <MediaBox>Can't find any！</MediaBox>
+                        }
+                    </PanelBody>
+        </Panel>
       </div>
     );
   }
