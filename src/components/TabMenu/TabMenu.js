@@ -4,6 +4,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Recommend from '../Recommend/Recommend';
 import RankingList from '../RankingList/RankingList';
+import SearchPage from '../SearchPage/SearchPage';
 
 import './TabMenu.less';
 
@@ -43,7 +44,7 @@ class TobMenu extends Component {
                     </Tab>
                     <Tab label="搜索">
                         <div>
-                            <h1>搜索</h1>
+                            <SearchPage></SearchPage>
                         </div>
                     </Tab>
                 </Tabs>
