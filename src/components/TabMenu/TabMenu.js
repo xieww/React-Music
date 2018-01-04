@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import Recommend from '../Recommend/Recommend';
+import RankingList from '../RankingList/RankingList';
 
 import './TabMenu.less';
 
@@ -31,12 +33,12 @@ class TobMenu extends Component {
                 <Tabs className="tabs">
                     <Tab label="推荐">
                         <div>
-                            <h1>推荐</h1>
+                            <Recommend></Recommend>
                         </div>
                     </Tab>
                     <Tab label="排行榜">
                         <div>
-                            <h1>排行榜</h1>
+                            <RankingList></RankingList>
                         </div>
                     </Tab>
                     <Tab label="搜索">
