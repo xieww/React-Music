@@ -15,7 +15,7 @@ import {
   CellBody,
   CellFooter
 } from "react-weui";
-//import styles
+
 import "weui";
 import "react-weui/build/packages/react-weui.css";
 import "./SearchPage.less";
