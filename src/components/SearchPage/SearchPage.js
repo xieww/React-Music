@@ -22,6 +22,7 @@ import "./SearchPage.less";
 const appMsgIcon = (
   <img src="https://y.gtimg.cn/music/photo_new/T002R68x68M000000y5gq7449K9I.jpg?max_age=2592000" />
 );
+
 class SearchPage extends Component {
   state = {
     searchText: "a",
