@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router,Route,Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import './RadioStation.less';
 
 class RadioStation extends Component {
     render() {
         return (
-            <Router>
                 <div className="radio-list">
                     <h2 className="list_title">电台</h2>
                     <ul className="list_ul">
@@ -22,7 +21,6 @@ class RadioStation extends Component {
                         </li>
                     </ul>
                 </div>
-            </Router>
         );
     }
 }

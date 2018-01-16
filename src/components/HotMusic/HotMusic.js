@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router,Route,Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import './HotMusic.less';
 
 class HotMusic extends Component {
     render() {
         return (
-            <Router>
                 <div className="hot-list">
                     <h2 className="list_title">热门歌单</h2>
                     <ul className="list_ul">
@@ -43,7 +42,6 @@ class HotMusic extends Component {
                         </li>
                     </ul>
                 </div>
-            </Router>
         );
     }
 }

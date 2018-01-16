@@ -1,22 +1,6 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import {
-  SearchBar,
-  Panel,
-  PanelHeader,
-  PanelBody,
-  PanelFooter,
-  MediaBox,
-  MediaBoxHeader,
-  MediaBoxBody,
-  MediaBoxTitle,
-  MediaBoxDescription,
-  Cell,
-  CellBody,
-  CellFooter
-} from "react-weui";
-import "weui";
-import "react-weui/build/packages/react-weui.css";
+import { Link } from "react-router-dom";
+import { SearchBar} from 'antd-mobile';
 import "./SearchPage.less";
 
 const appMsgIcon = (
@@ -45,66 +29,34 @@ class SearchPage extends Component {
   render() {
     return (
       <div className="search_main">
-        <SearchBar
-          onChange={this.handleChange.bind(this)}
-          defaultValue={this.state.searchText}
-          placeholder="搜索歌曲、歌单、专辑"
-        />
-        <Router>
-          <div className="hot_search">
-            <h3 className="hot_title">热门搜索</h3>
-            <div className="result_list">
-              <Link className="tags" to="" query={{ id: 4 }}>
-                梦想的声音第二季
-              </Link>
-              <Link className="itemlist" to="" query={{ id: 4 }}>
-                DJ舞曲(华语)系列5 DJ
-              </Link>
-              <Link className="itemlist" to="" query={{ id: 4 }}>
-                WHAT ARE WORDS
-              </Link>
-              <Link className="itemlist" to="" query={{ id: 4 }}>
-                中国好声音 第六季
-              </Link>
-              <Link className="itemlist" to="" query={{ id: 4 }}>
-                非酋 薛明媛/朱贺
-              </Link>
-              <Link className="itemlist" to="" query={{ id: 4 }}>
-                一生所爱 卢冠廷
-              </Link>
-              <Link className="itemlist" to="" query={{ id: 4 }}>
-                舍得{" "}
-              </Link>
-            </div>
+        <SearchBar placeholder="搜索歌曲、歌单、专辑" ref={ref => this.autoFocusInst = ref} />
+
+        <div className="hot_search">
+          <h3 className="hot_title">热门搜索</h3>
+          <div className="result_list">
+            <Link className="tags" to="">
+              梦想的声音第二季
+            </Link>
+            <Link className="itemlist" to="">
+              DJ舞曲(华语)系列5 DJ
+            </Link>
+            <Link className="itemlist" to="">
+              WHAT ARE WORDS
+            </Link>
+            <Link className="itemlist" to="">
+              中国好声音 第六季
+            </Link>
+            <Link className="itemlist" to="">
+              非酋 薛明媛/朱贺
+            </Link>
+            <Link className="itemlist" to="">
+              一生所爱 卢冠廷
+            </Link>
+            <Link className="itemlist" to="">
+              舍得{" "}
+            </Link>
           </div>
-        </Router>
-        {/* <Panel
-          style={{
-            display: this.state.searchText ? null : "none",
-            marginTop: 0
-          }}
-        >
-          <PanelHeader>Female Name Search</PanelHeader>
-          <PanelBody>
-            {this.state.results.length > 0 ? (
-              this.state.results.map((item, i) => {
-                return (
-                  <MediaBox key={i} type="appmsg" href="javascript:void(0);">
-                    <MediaBoxHeader>{appMsgIcon}</MediaBoxHeader>
-                    <MediaBoxBody>
-                      <MediaBoxTitle>{item}</MediaBoxTitle>
-                      <MediaBoxDescription>
-                        You may like this name.
-                      </MediaBoxDescription>
-                    </MediaBoxBody>
-                  </MediaBox>
-                );
-              })
-            ) : (
-              <MediaBox>Can't find any！</MediaBox>
-            )}
-          </PanelBody>
-        </Panel> */}
+        </div>
       </div>
     );
   }
