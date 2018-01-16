@@ -37,7 +37,8 @@ class CarouselLIst extends Component {
                 />
             </a>
         );
-    } )
+    } );
+    
     return (
       <div className="lunbo">
         <Carousel autoplay={true} infinite dotActiveStyle={{ background: "#31c27c" }}>
