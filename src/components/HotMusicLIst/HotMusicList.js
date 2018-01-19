@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { ListView } from "antd-mobile";
 import "./HotMusicList.less";
 
 class HotMusicList extends Component {
@@ -15,9 +14,17 @@ class HotMusicList extends Component {
 
     rowList = this.props.list.map((item, index) => {
         return (
-            <li className="row-li">
+            <li className="row-li" key={index}>
                 <div className="music-img">
                     <img src={item.imgurl} alt=""/>
+                </div>
+                <div className="text">
+                    <h2 className="title-name">
+                        {item.creator.name}
+                    </h2>
+                    <p className="music-info">
+                        {item.dissname}
+                    </p>
                 </div>
             </li>
         );

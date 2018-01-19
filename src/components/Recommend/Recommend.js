@@ -8,6 +8,7 @@ import './Recommend.less';
 import { getCarouseList, getDiscList } from '../../Api/recommend';
 import { CODE_SUCCESS } from '../../Api/config';
 
+
 class Recommend extends Component {
   constructor(props) {
     super(props);
