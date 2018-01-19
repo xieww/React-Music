@@ -33,7 +33,7 @@ const tabs = [{ title: "推荐" }, { title: "排行榜" }, { title: "搜索" }];
 class TobMenu extends Component {
   render() {
     return (
-      <div>
+      <div className="maincolor">
         <Tabs
           tabs={tabs}
           initialPage={0}

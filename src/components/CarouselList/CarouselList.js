@@ -1,21 +1,12 @@
 import React, { Component } from "react";
-// import { Carousel } from 'antd';
-// import 'antd/dist/antd.css';
-
 import { Carousel } from "antd-mobile";
-// import "antd-mobile/dist/antd-mobile.css";
 import "./CarouselList.less";
 
 class CarouselLIst extends Component {
-    // state = {
-    //     data: ['1', '2', '3'],
-    //     imgHeight: 150,
-    //     slideIndex: 0,
-    //   }
     constructor(props) {
         super(props);
         this.state = {
-            sliderList: [],
+            // sliderList: [],
             imgHeight: 150,
             slideIndex: 0,
         };

@@ -3,27 +3,14 @@ import { Link } from "react-router-dom";
 import { SearchBar} from 'antd-mobile';
 import "./SearchPage.less";
 
-const appMsgIcon = (
-  <img src="https://y.gtimg.cn/music/photo_new/T002R68x68M000000y5gq7449K9I.jpg?max_age=2592000" />
-);
+// const appMsgIcon = (
+//   <img src="https://y.gtimg.cn/music/photo_new/T002R68x68M000000y5gq7449K9I.jpg?max_age=2592000" />
+// );
 
 class SearchPage extends Component {
-  state = {
-    searchText: "a",
-    results: []
-  };
 
   handleChange(text, e) {
-    let keywords = [text];
-    // let results = SampleData.filter(
-    //   /./.test.bind(new RegExp(keywords.join("|"), "i"))
-    // );
 
-    // if (results.length > 3) results = results.slice(0, 3);
-    this.setState({
-      //   results,
-      searchText: text
-    });
   }
 
   render() {
