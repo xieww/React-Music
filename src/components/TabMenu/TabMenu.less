@@ -1,6 +1,22 @@
-.maincolor {
-    // background: #6CBDB4 !important;
-}
-.tabs {
-    font-size: 16px !important;
+.music-tab {
+    display: flex;
+    height: 35px;
+    line-height: 35px;
+    color: #ddd;
+    text-align: center;
+    // padding-bottom: 2px;
+    // background: #212121;
+
+    .tab-item {
+        flex: 1 1;
+        .nav-link {
+            display: block;
+            text-decoration: none;
+            color: #000;
+            &.active {
+                color: #31c27c;
+                border-bottom: 2px solid #31c27c;
+            }
+        }
+    }
 }
