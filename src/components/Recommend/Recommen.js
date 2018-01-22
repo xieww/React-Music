@@ -4,11 +4,11 @@ import { getCarouseList, getDiscList } from "../../Api/recommend";
 import { CODE_SUCCESS } from "../../Api/config";
 import Scroll from "../../utils/scroll";
 import { Carousel} from "antd-mobile";
+// import { Button } from 'antd';
 import { Button, Icon } from 'antd';
-import 'antd/dist/antd.css'; 
+import 'antd/lib/date-picker/style'; 
 import { withRouter,Route } from "react-router-dom";
 import SongList from '../SongList/SongList';
-import MyLoading from "../common/Loading/Loading";
 
 class Recommend extends Component {
   constructor(props) {
@@ -16,12 +16,9 @@ class Recommend extends Component {
     this.state = {
       sliderList: [],
       discList: [],
-      discListMore: [],
       AlbumsLIst: [],
       refreshScroll: false,
       mgHeight: 150,
-      isData: false,
-      loadings: true,
     };
   }
 
@@ -53,10 +50,7 @@ class Recommend extends Component {
           console.log(res.data.list);
           this.setState(
             {
-              discListMore: res.data.list,
-              discList: res.data.list.slice(0,6),
-              isData: true,
-              loadings: false,
+              discList: res.data.list
             },
             () => {
               //刷新scroll
@@ -86,11 +80,10 @@ class Recommend extends Component {
   }
 
   render() {
-    //热门歌单
-    let discsList = "";
+    let rowList = "";
     let {match} = this.props;
     console.log('跳转歌单链接：',this.props.history);
-    discsList = this.state.discList.map((item, index) => {
+    rowList = this.state.discList.map((item, index) => {
       return (
         <li className="row-li" key={index} onClick={this.toMusicList(`${match.url + '/' + item.dissid}`)}>
           <div className="music-img">
@@ -103,22 +96,6 @@ class Recommend extends Component {
         </li>
       );
     });
-
-    //热门专辑
-    let AlbumsItem = "";
-    AlbumsItem = this.state.discList.map((item,index) => {
-      return (
-          <li className="row-li" key={index} onClick={this.toMusicList(`${match.url + '/' + item.dissid}`)}>
-            <div className="music-img">
-              <img src={item.imgurl} alt="" />
-            </div>
-            <div className="text">
-              <h2 className="title-name">{item.creator.name}</h2>
-              <p className="music-info">{item.dissname}</p>
-            </div>
-          </li>
-      );
-    })
     return (
     <div className="recom_tab">
       <Scroll refresh={this.state.refreshScroll}>
@@ -135,27 +112,21 @@ class Recommend extends Component {
               })}
               </Carousel>
           </div>
-          <div className="hotlist" id="songs" style={this.state.isData === true ? {} : {display:"none"}}>
+          <div className="hotlist">
             <h1 className="list-title">
               热门歌单推荐
+              {/* <Button shape="circle" icon="right-circle-o" /> */}
+              {/* <Button size="small" ghost> */}
+              
+              {/* </Button> */}
             </h1>
-            <Icon type="right-circle-o" className="icon-more"
-            onClick={this.toMusicList(`${match.url + '/songlist'}`)}/>
-            <ul>{discsList}</ul>   
-          </div>
-          <div className="hotlist" id="albums" style={this.state.isData === true ? {} : {display:"none"}}>
-            <h1 className="list-title">
-              热门专辑推荐
-            </h1>
-            <Icon type="right-circle-o" className="icon-more"
-            onClick={this.toMusicList(`${match.url + '/albumlist'}`)}/>
-            <ul className="album-ul">{AlbumsItem}</ul>   
-          </div>  
+            <Icon type="right-circle-o" style={{float:"right",position:"relative",top:"-29px",right:"6px",fontSize:"16px" }}
+            onClick={this.toMusicList(`${match.url + '/' + 12345}`)}/>
+            <ul>{rowList}</ul>   
+          </div> 
         </div>
-        <Route path={`${match.url + '/songlist'}`} component={SongList} />
-        <Route path={`${match.url + '/albumlist'}`} component={SongList} />
+        <Route path={`${match.url + '/:id'}`} component={SongList} />
       </Scroll>
-      <MyLoading isloading={this.state.loadings}/>
     </div>
       )
   }
