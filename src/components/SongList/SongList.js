@@ -7,7 +7,8 @@ import { getDiscList } from "../../Api/recommend";
 import { CODE_SUCCESS } from "../../Api/config";
 import Scroll from "../../utils/scroll";
 import MyLoading from "../common/Loading/Loading";
-// import { Toast} from 'antd-mobile';
+import LazyLoad, { forceCheck } from "react-lazyload"
+
 
 class SongList extends Component {
   constructor(props) {
@@ -77,7 +78,9 @@ class SongList extends Component {
       return (
         <li className="row-li" key={index} onClick={this.toMusicList(`${match.url + '/' + item.dissid}`)}>
           <div className="music-img">
-            <img src={item.imgurl} alt="" />
+              <LazyLoad height={100}>
+                <img src={item.imgurl} alt="" />
+              </LazyLoad>
           </div>
           <div className="text">
             <h2 className="title-name">{item.creator.name}</h2>
@@ -90,7 +93,10 @@ class SongList extends Component {
       <CSSTransition in={this.state.show} timeout={300} classNames="translate">
         <div className="song-list">
           <NavHeadBar title = {this.state.headerLitle}/>
-          <Scroll refresh={this.state.refreshScroll}>
+          <Scroll refresh={this.state.refreshScroll} 
+            onScroll={(e) => {
+            /*检查懒加载组件是否出现在视图中，如果出现就加载组件*/
+            forceCheck();}}>
           <div className="hot-songs">
               <div className="hotlist" id="songs" style={this.state.isData === true ? {} : {display:"none"}}>
                 <ul>{discsList}</ul>   

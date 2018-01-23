@@ -1,74 +1,116 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { getTopList } from "../../Api/rankinglist";
+import { CODE_SUCCESS } from "../../Api/config";
+import Scroll from "../../utils/scroll";
+import { withRouter,Route } from "react-router-dom";
+import MyLoading from "../common/Loading/Loading";
+import LazyLoad, { forceCheck } from "react-lazyload";
+import * as RankingModel from "../../model/rankingList";
 import "./RankingList.less";
+import RankingListDetail from "./RankingListDetail";
 
 class RankingList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      rankingList: [],
+      refreshScroll: false,
+      isData: false,
+      loadings: true,
+    };
+  }
+
+  /**
+   * @author xieww
+   * @description 
+   */
+  getRankingList() {
+    getTopList().then(res =>{
+      if (res) {
+        if (res.code === CODE_SUCCESS) {
+          console.log('排行榜信息',res);
+          let topList = [];
+					res.data.topList.forEach(item => {
+						if (/MV/i.test(item.topTitle)) {
+							return;
+						}
+						topList.push(RankingModel.createRankingByList(item));
+					});
+					this.setState({
+            loadings: false,
+            isData: true,
+						rankingList: topList
+					}, () => {
+						//刷新scroll
+						this.setState({refreshScroll:true});
+					});
+        }
+      }
+    })
+  };
+
+  /**
+   * @author xieww
+   * @description 跳转到歌单页面
+   * @param {*} urlId
+   */
+  toSongListDetail(urlId) {
+    return () => {
+      this.props.history.push({
+        pathname:urlId
+      });
+    };
+  };
+
+  componentDidMount() {
+    this.getRankingList();
+  }
+  
   render() {
+
+    let {match} = this.props;
+    let rankFristList = '';
+    console.log('listenCount=',this.state.rankingList);
+    rankFristList = this.state.rankingList.map((item,index) => {
+      return (
+        <li key={item.id} className="rank-li" onClick={this.toSongListDetail(`${match.url + '/' + item.id}`)}>
+            <div className="rank-img-div">
+              <LazyLoad height={100}>
+                <img className="rank-imgs" src={item.img} alt={item.title}/>
+              </LazyLoad>
+              <span className="counts">
+                <i className="icon-listen"></i>
+                {item.listenCount}
+              </span>
+            </div>
+            <ul className="song-ul">
+                  {
+                    item.songs.map((items,indexs) => {
+                      return (
+                        <li className="song-li" key={indexs}>
+                          <span>{indexs + 1}&nbsp;</span>
+                          <span>{items.name}-{items.singer}</span>
+                        </li>
+                      )
+                    })
+                  }
+            </ul>
+        </li>
+      )
+    })
+
     return (
-      <div className="topic_list">
-        <ul className="topic_ul">
-          <li className="topic_li">
-            <div className="topic_main">
-              <Link className="topic_items" to="">
-                <img
-                  alt=""
-                  src="https://y.gtimg.cn/music/common/upload/iphone_order_channel/toplist_4_300_212606735.jpg?max_age=2592000"
-                />
-                <span className="listen_count">
-                  <i className="icon_listen" />
-                  1910.0万
-                </span>
-              </Link>
-              <div className="topic_listinfo">
-                <div className="info_item">
-                  <h3 className="info_title">安利XS·巅峰榜·流行指数</h3>
-                  <p>
-                    1<span className="info_name">体面</span>- 于文文
-                  </p>
-                  <p>
-                    2<span className="info_name">说散就散</span>- 袁娅维
-                  </p>
-                  <p>
-                    3<span className="info_name">FAST</span>- 张杰/LOKEY低调组合
-                  </p>
-                </div>
-                <i className="info_arrow" />
-              </div>
-            </div>
-          </li>
-          <li className="topic_li">
-            <div className="topic_main">
-              <Link className="topic_items" to="" query={{ id: 4 }}>
-                <img
-                  alt=""
-                  src="https://y.gtimg.cn/music/common/upload/iphone_order_channel/toplist_26_300_212606735.jpg?max_age=2592000"
-                />
-                <span className="listen_count">
-                  <i className="icon_listen" />
-                  1910.0万
-                </span>
-              </Link>
-              <div className="topic_listinfo">
-                <div className="info_item">
-                  <h3 className="info_title">巅峰榜·热歌</h3>
-                  <p>
-                    1<span className="info_name">体面</span>- 于文文
-                  </p>
-                  <p>
-                    2<span className="info_name">想你</span>- 吴亦凡/赵丽颖
-                  </p>
-                  <p>
-                    3<span className="info_name">说散就散</span>- 袁娅维
-                  </p>
-                </div>
-                <i className="info_arrow" />
-              </div>
-            </div>
-          </li>
-        </ul>
+      <div className="rank-list">
+          <Scroll refresh={this.state.refreshScroll} onScroll={(e) => { forceCheck();}} className="rank-scroll">
+              <ul className="rank-ul">
+                {rankFristList}
+              </ul>
+              <Route path={`${match.url + '/:id'}`} component={RankingListDetail} />
+          </Scroll>
+          <MyLoading isloading={this.state.loadings}/>
       </div>
     );
   }
 }
 
-export default RankingList;
+export default withRouter(RankingList);

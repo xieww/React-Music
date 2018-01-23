@@ -17,7 +17,9 @@ class NavHeadBar extends Component {
           onLeftClick={() => this.props.history.goBack()}
           className="header-nav"
         >
-          {this.props.title}
+          <span className="title-header">
+            {this.props.title}
+          </span>
         </NavBar>
         )
     }

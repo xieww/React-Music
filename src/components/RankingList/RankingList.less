@@ -1,43 +1,45 @@
-.topic_list {
-    margin: 10px;
+.rank-list {
+    position: fixed;
+    width: 100%;
+    top: 88px;
+    bottom: 0;
 
-    .topic_li {
-        margin-bottom: 10px;
-        overflow: hidden;
-        list-style: none;
+    // .rank-scroll {
+    //     height: 100%;
+    //     overflow: hidden;
 
-        .topic_main {
-            display: -webkit-box;
-            background: #fff;
+        .rank-li {
+            display: flex;
+            margin: 0 20px;
+            padding-top: 20px;
+            height: 100px;
+            padding-bottom: 95px;
 
-            .topic_items {
-                position: relative;
+            &:last-child {
+                padding-bottom: 155px;
+            }
+            .rank-img-div {
+                flex: 0 0 100px;
                 width: 100px;
                 height: 100px;
-                display: block;
-                text-decoration: none;
-
-                img {
-                    display: block;
-                    width: 100px;
+                
+                .rank-imgs {
                     height: 100px;
-                    color: #ccc;
-                    border: 0;
+                    width: 100px;
                 }
-                .listen_count {
+                .counts {
+                    position: relative;
+                    display: block;
                     left: 5px;
-                    bottom: 7px;
-                    display: block;
-                    line-height: 12px;
+                    bottom: 18px;
+                    line-height: 10px;
                     color: #fff;
-                    position: absolute;
-                    display: block;
                     opacity: .6;
                     font-size: 9px;
                     z-index: 10;
 
 
-                    .icon_listen {
+                    .icon-listen {
                         display: block;
                         float: left;
                         width: 10px;
@@ -47,70 +49,29 @@
                         background-image: url(https://y.gtimg.cn/mediastyle/mobile/yqq_v5/img/list_sprite.png?max_age=19830212&d=20151105145423);
                         background-repeat: no-repeat;
                         background-size: 24px 60px;
+                        z-index: 10;
+                        font-style: italic;
                     }
                 }
             }
-            .topic_items:after {
-                content: "";
-                position: absolute;
-                left: 0;
-                bottom: 0;
-                width: 100%;
+            .song-ul {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                padding: 0 20px;
                 height: 100px;
-                z-index: 1;
-                background-image: url(https://y.gtimg.cn/mediastyle/mobile/yqq_v5/img/shadow_rp_b.png?max_age=19830212&d=20151105145423);
-                background-size: 1px 117px;
-                background-repeat: repeat-x;
-            }
-            .topic_listinfo {
-                position: relative;
-                -webkit-box-flex: 1;
-                display: -webkit-box;
-                -webkit-box-align: center;
-                -webkit-box-pack: center;
-
-                .info_item {
-                    -webkit-box-flex: 1;
-                    margin: 0 10px 0 15px;
-
-                    .info_title {
-                        font-size: 16px;
-                        color: #000;
-                        font-weight: normal;
-                        margin-bottom: 5px;
-                        overflow: hidden;
-                        white-space: nowrap;
-                        text-overflow: ellipsis;
-                        display: block;
-                    }
-                    p {
-                        display: block;
-                        font-size: 14px;
-                        line-height: 21px;
-                        color: rgba(0,0,0,.5);
-                        overflow: hidden;
-                        white-space: nowrap;
-                        text-overflow: ellipsis;
-
-                        .info_name {
-                            color: #000;
-                            margin-left: 8px;
-                            margin-right: 5px;
-                        }
-                    }
-                }
-                .info_arrow {
-                    position: absolute;
-                    right: 10px;
-                    top: 50%;
-                    margin-top: -4px;
-                    width: 6px;
-                    height: 6px;
-                    border-right: 1px solid #b2b2b2;
-                    border-bottom: 1px solid #b2b2b2;
-                    transform: rotate(-45deg);
+                overflow: hidden;
+                background: #1E484F;
+                color: hsla(0,0%,100%,.3);
+                font-size: 12px;
+                .song-li {
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    line-height: 26px;
                 }
             }
         }
-    }
+    // }
 }

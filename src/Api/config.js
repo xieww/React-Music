@@ -22,7 +22,9 @@ const URL = {
 	/*歌手详情*/
 	singerInfo: "https://c.y.qq.com/v8/fcg-bin/fcg_v8_singer_track_cp.fcg",
 	/*歌曲vkey*/
-	songVkey: "https://c.y.qq.com/base/fcgi-bin/fcg_music_express_mobile3.fcg"
+	songVkey: "https://c.y.qq.com/base/fcgi-bin/fcg_music_express_mobile3.fcg",
+	/*热门歌单详情*/
+	hotsongList: "https://c.y.qq.com/qzone/fcg-bin/fcg_ucc_getcdinfo_byids_cp.fcg"
 };
 
 const commonParams = {

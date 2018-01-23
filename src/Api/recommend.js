@@ -49,7 +49,6 @@ export function getDiscList() {
  * @param {*} disstid 
  */
   export function getSongList(disstid) {
-    const url = 'https://c.y.qq.com/qzone/fcg-bin/fcg_ucc_getcdinfo_byids_cp.fcg'
   
     const data = Object.assign({}, commonParams, {
       disstid,
@@ -62,7 +61,7 @@ export function getDiscList() {
       needNewCode: 0
     })
   
-    return jsonp(url, data, OPTION)
+    return jsonp(URL.hotsongList, data, OPTION)
   }
 
   /**

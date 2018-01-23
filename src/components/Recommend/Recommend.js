@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./Recommend.less";
-import { getCarouseList, getDiscList } from "../../Api/recommend";
+import { getCarouseList, getDiscList, getNewAlbum } from "../../Api/recommend";
 import { CODE_SUCCESS } from "../../Api/config";
 import Scroll from "../../utils/scroll";
 import { Carousel} from "antd-mobile";
@@ -9,6 +9,9 @@ import 'antd/dist/antd.css';
 import { withRouter,Route } from "react-router-dom";
 import SongList from '../SongList/SongList';
 import MyLoading from "../common/Loading/Loading";
+import LazyLoad, { forceCheck } from "react-lazyload";
+import * as AlbumModel from "../../model/album";
+import AlbumList from "../Album/AlbumList";
 
 class Recommend extends Component {
   constructor(props) {
@@ -47,10 +50,10 @@ class Recommend extends Component {
    */
   getDiscData() {
     getDiscList().then(res => {
-      console.log(res);
+      // console.log(res);
       if (res) {
         if (res.code === CODE_SUCCESS) {
-          console.log(res.data.list);
+          // console.log(res.data.list);
           this.setState(
             {
               discListMore: res.data.list,
@@ -67,6 +70,26 @@ class Recommend extends Component {
       }
     });
   };
+
+  /**
+   * @author xieww
+   * @description 获取最新专辑信息
+   */
+  getNewAlbumData() {
+    getNewAlbum().then(res => {
+      if (res.code === CODE_SUCCESS) {
+        let albumList = res.albumlib.data.list;
+        this.setState({
+          loadings: false,
+          isData: true,
+          AlbumsLIst: albumList.slice(0,6),
+        }, () => {
+          //刷新scroll
+          this.setState({refreshScroll:true});
+        });
+      }
+    })
+  }
     
   /**
    * @author xieww
@@ -81,8 +104,12 @@ class Recommend extends Component {
     };
   };
   componentDidMount() {
+    //获取首页轮播图信息
     this.getCarouseData();
+    //获取最新歌单信息
     this.getDiscData();
+    //获取最新专辑信息
+    this.getNewAlbumData();
   }
 
   render() {
@@ -94,7 +121,9 @@ class Recommend extends Component {
       return (
         <li className="row-li" key={index} onClick={this.toMusicList(`${match.url + '/' + item.dissid}`)}>
           <div className="music-img">
-            <img src={item.imgurl} alt="" />
+                <LazyLoad height={100}>
+                  <img src={item.imgurl} alt="" />
+                </LazyLoad>
           </div>
           <div className="text">
             <h2 className="title-name">{item.creator.name}</h2>
@@ -106,22 +135,28 @@ class Recommend extends Component {
 
     //热门专辑
     let AlbumsItem = "";
-    AlbumsItem = this.state.discList.map((item,index) => {
+    AlbumsItem = this.state.AlbumsLIst.map((item,index) => {
+      let album = AlbumModel.createAlbumByList(item);
       return (
-          <li className="row-li" key={index} onClick={this.toMusicList(`${match.url + '/' + item.dissid}`)}>
+          <li className="row-li" key={album.mId} onClick={this.toMusicList(`${match.url + '/' + album.mId}`)}>
             <div className="music-img">
-              <img src={item.imgurl} alt="" />
+                <LazyLoad height={100}>
+                  <img src={album.img} alt={album.name} />
+                </LazyLoad>
             </div>
             <div className="text">
-              <h2 className="title-name">{item.creator.name}</h2>
-              <p className="music-info">{item.dissname}</p>
+              <h2 className="title-name">{album.name}</h2>
+              <p className="music-info">{album.singer}</p>
             </div>
           </li>
       );
     })
     return (
     <div className="recom_tab">
-      <Scroll refresh={this.state.refreshScroll}>
+      <Scroll refresh={this.state.refreshScroll} 
+        onScroll={(e) => {
+					/*检查懒加载组件是否出现在视图中，如果出现就加载组件*/
+					forceCheck();}}>
         <div>
           <div className="lunbo">
               <Carousel autoplay={true} infinite dotActiveStyle={{ background: "#31c27c" }}>
@@ -153,7 +188,9 @@ class Recommend extends Component {
           </div>  
         </div>
         <Route path={`${match.url + '/songlist'}`} component={SongList} />
-        <Route path={`${match.url + '/albumlist'}`} component={SongList} />
+        {/* <Route path={`${match.url + '/songlist' + '/:id'}`} component={SongListDetail} /> */}
+        <Route path={`${match.url + '/albumlist'}`} component={AlbumList} />
+        {/* <Route path={`${match.url + '/albumlist' + '/:id'}`} component={AlbumListDetail} /> */}
       </Scroll>
       <MyLoading isloading={this.state.loadings}/>
     </div>

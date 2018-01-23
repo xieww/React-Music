@@ -18,6 +18,7 @@ article, aside, details, figcaption, figure,footer, header, hgroup, menu, nav, s
 body 
 {
   line-height: 1;
+  background-color: #2A4F56 !important;
 }
 ol,ul 
 {
@@ -26,4 +27,7 @@ ol,ul
 div 
 {
   display: block;
+}
+li {
+  list-style: none;
 }
