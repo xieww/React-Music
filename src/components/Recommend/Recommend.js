@@ -77,16 +77,18 @@ class Recommend extends Component {
    */
   getNewAlbumData() {
     getNewAlbum().then(res => {
-      if (res.code === CODE_SUCCESS) {
-        let albumList = res.albumlib.data.list;
-        this.setState({
-          loadings: false,
-          isData: true,
-          AlbumsLIst: albumList.slice(0,6),
-        }, () => {
-          //刷新scroll
-          this.setState({refreshScroll:true});
-        });
+      if (res) {
+        if (res.code === CODE_SUCCESS) {
+          let albumList = res.albumlib.data.list;
+          this.setState({
+            loadings: false,
+            isData: true,
+            AlbumsLIst: albumList.slice(0,6),
+          }, () => {
+            //刷新scroll
+            this.setState({refreshScroll:true});
+          });
+        }
       }
     })
   }

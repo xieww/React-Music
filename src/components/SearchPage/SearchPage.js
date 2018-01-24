@@ -1,49 +1,66 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { SearchBar} from 'antd-mobile';
+import { SearchBar, Tag} from 'antd-mobile';
 import "./SearchPage.less";
-
-// const appMsgIcon = (
-//   <img src="https://y.gtimg.cn/music/photo_new/T002R68x68M000000y5gq7449K9I.jpg?max_age=2592000" />
-// );
+import Scroll from "../../utils/scroll";
+import { getHotKey, search } from "../../Api/search";
+import { CODE_SUCCESS } from "../../Api/config";
 
 class SearchPage extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      refreshScroll: true,
+      isData: false,
+      loadings: true,
+      hotkeylist: [],
+    };
+  };
+
+  
   handleChange(text, e) {
 
   }
 
+  getHotkeyData() {
+    getHotKey().then(res => {
+      if (res) {
+        if (res.code ===CODE_SUCCESS) {
+          this.setState({
+            hotkeylist: res.data.hotkey.slice(0,10),
+          })
+        }
+      }
+    })
+  };
+
+  componentDidMount() {
+    this.getHotkeyData();
+  }
+
   render() {
+    let hotkeyItem = "";
+    hotkeyItem = this.state.hotkeylist.map((item,index) =>{
+      return (
+        <Tag className="tags" key={index}>{item.k}</Tag>
+      )
+    })
     return (
       <div className="search_main">
-        <SearchBar placeholder="搜索歌曲、歌单、专辑" ref={ref => this.autoFocusInst = ref} />
-
-        <div className="hot_search">
-          <h3 className="hot_title">热门搜索</h3>
-          <div className="result_list">
-            <Link className="tags" to="">
-              梦想的声音第二季
-            </Link>
-            <Link className="itemlist" to="">
-              DJ舞曲(华语)系列5 DJ
-            </Link>
-            <Link className="itemlist" to="">
-              WHAT ARE WORDS
-            </Link>
-            <Link className="itemlist" to="">
-              中国好声音 第六季
-            </Link>
-            <Link className="itemlist" to="">
-              非酋 薛明媛/朱贺
-            </Link>
-            <Link className="itemlist" to="">
-              一生所爱 卢冠廷
-            </Link>
-            <Link className="itemlist" to="">
-              舍得{" "}
-            </Link>
+        <Scroll refresh={this.state.refreshScroll} className="scroll-box">
+          <div className="search-box">
+            <SearchBar placeholder="搜索歌曲、歌单、专辑" ref={ref => this.autoFocusInst = ref} className="search-bar"/>
           </div>
-        </div>
+          <div className="search-center">
+              <div className="hot_search">
+                  <h3 className="hot_title">热门搜索</h3>
+                  <div className="result_list">
+                      {hotkeyItem}
+                  </div>
+              </div>
+          </div>
+        </Scroll> 
       </div>
     );
   }
