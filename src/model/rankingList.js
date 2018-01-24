@@ -43,6 +43,11 @@ export function createRankingByDetail(data) {
 	);
 };
 
+/**
+ * @author xieww
+ * @description 处理排行榜播放量方法
+ * @param {*} counts 
+ */
 function changeNumber(counts) {
 	
 	let newCount = "";
@@ -52,7 +57,6 @@ function changeNumber(counts) {
 	
 	if (len > 4) {
 		let count = str.slice(-4).slice(0,1);
-		console.log('count=' + count);
 		let temp = parseInt(count);
 		if (count == 0) {
 			newCount = intNumber + '万';
