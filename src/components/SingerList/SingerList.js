@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { Link,withRouter,Route } from "react-router-dom";
-import ReactDOM from "react-dom"
+import ReactDOM from "react-dom";
 import Scroll from "../../utils/scroll";
 import { getSingerList } from "../../Api/singer";
 import { CODE_SUCCESS, Indexs, singerType } from "../../Api/config";
 import "./SingerList.less";
 import * as SingerModel from "../../model/singer";
 // import  Singer from "../../model/singer";
+import ListView from "../common/ListView/ListView";
+import MyLoading from "../common/Loading/Loading";
 
 const HOT_SINGER_LEN = 10;
 const HOT_NAME = '热门';
@@ -20,10 +22,15 @@ class SingerList extends Component {
         Indexs: Indexs,
         singerType: singerType,
         typeKey: "all_all",
-		indexKey: "all",
+        indexKey: "all",
+        loadings: true,
       };
     };
 
+    /**
+     * @author xieww
+     * @description 初始化筛选框宽度
+     */
 	initNavScrollWidth() {
 		let typeDOM = ReactDOM.findDOMNode(this.refs.singertype);
 		let typeElems = typeDOM.querySelectorAll("a");
@@ -42,13 +49,18 @@ class SingerList extends Component {
 		indexDOM.style.width = `${indexTotalWidth}px`;
     };
 
+    /**
+     * @author xieww
+     * @description 获取歌手信息
+     */
     getSingerData() {
         getSingerList(1, `${this.state.typeKey + '_' + this.state.indexKey}`).then(res => {
             if (res) {
                 if (res.code === CODE_SUCCESS) {
-                    // console.log(res);
+                    console.log(res);
                     this.setState({
                         singerList:this.getSortSinger(res.data.list),
+                        loadings: false,
                     });
                 }
             }
@@ -65,9 +77,9 @@ class SingerList extends Component {
         list.forEach((item, index) => {
           if (index < HOT_SINGER_LEN) {
             map.hot.items.push(new SingerModel.Singer(
-              item.Fsinger_name,
               item.Fsinger_id,
               item.Fsinger_mid,
+              item.Fsinger_name,
               `https://y.gtimg.cn/music/photo_new/T001R150x150M000${item.Fsinger_mid}.jpg?max_age=2592000`
             ))
           }
@@ -79,9 +91,9 @@ class SingerList extends Component {
             }
           }
           map[key].items.push(new SingerModel.Singer(
-            item.Fsinger_name,
             item.Fsinger_id,
             item.Fsinger_mid,
+            item.Fsinger_name,
             `https://y.gtimg.cn/music/photo_new/T001R150x150M000${item.Fsinger_mid}.jpg?max_age=2592000`
           ))
         })
@@ -102,18 +114,38 @@ class SingerList extends Component {
         return hot.concat(ret)
     };
 
+    handleTypeClick = (key) => {
+		this.setState({
+			loadings: true,
+			typeKey: key,
+			indexKey: "all",
+			singerList: []
+		}, () => {
+			this.getSingerData();
+		});
+	}
+	handleIndexClick = (key) => {
+		this.setState({
+			loading: true,
+			indexKey: key,
+			singerList: []
+		}, () => {
+			this.getSingerData();
+		});
+	}
     componentDidMount() {
 		//初始化导航元素总宽度
         this.initNavScrollWidth();
         this.getSingerData();
 	}
     render() {
-        // console.log('this.state.singerList:',this.state.singerList);
+        console.log('this.state.singerList:',this.state.singerList);
         let {match} = this.props;
         let singerTypeItem = '';
         singerTypeItem = this.state.singerType.map((item,index) => {
             return (
-                <a className={item.key === this.state.typeKey ? "selected" : ""} key={item.key}>
+                <a className={item.key === this.state.typeKey ? "selected" : ""} key={item.key}
+                    onClick={() => {this.handleTypeClick(item.key);}}>
                     {item.name}
                 </a>
             )
@@ -121,7 +153,8 @@ class SingerList extends Component {
         let singerIndexItem = '';
         singerIndexItem = this.state.Indexs.map((item,index) => {
             return (
-                <a className={item.key === this.state.indexKey ? "selected" : ""} key={item.key}>
+                <a className={item.key === this.state.indexKey ? "selected" : ""} key={item.key}
+                    onClick={() => {this.handleIndexClick(item.key);}}>
                     {item.name}
                 </a>
             )
@@ -144,12 +177,12 @@ class SingerList extends Component {
                     <div className="border-inline"></div>
                 </div>
                 <div className="singer-item">
-                    
+                    <ListView list={this.state.singerList}/>
                 </div>
-                歌手页面
+                <MyLoading isloading={this.state.loadings}/>
             </div>
         );
     }
 }
 
-export default SingerList;
+export default withRouter(SingerList);
