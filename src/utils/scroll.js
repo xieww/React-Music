@@ -7,7 +7,6 @@ import "./scroll.less"
 class Scroll extends React.Component {
 	componentDidUpdate() {
 		//组件更新后，如果实例化了better-scroll并且需要刷新就调用refresh()函数
-		console.log('this.bScroll',this.bScroll);
 		if (this.bScroll && this.props.refresh === true) {
 			this.bScroll.refresh();
 		}

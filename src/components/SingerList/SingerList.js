@@ -57,7 +57,7 @@ class SingerList extends Component {
         getSingerList(1, `${this.state.typeKey + '_' + this.state.indexKey}`).then(res => {
             if (res) {
                 if (res.code === CODE_SUCCESS) {
-                    console.log(res);
+                    // console.log(res);
                     this.setState({
                         singerList:this.getSortSinger(res.data.list),
                         loadings: false,
@@ -139,7 +139,7 @@ class SingerList extends Component {
         this.getSingerData();
 	}
     render() {
-        console.log('this.state.singerList:',this.state.singerList);
+        // console.log('this.state.singerList:',this.state.singerList);
         let {match} = this.props;
         let singerTypeItem = '';
         singerTypeItem = this.state.singerType.map((item,index) => {

@@ -9,7 +9,7 @@ class NavHeadBar extends Component {
         this.state = {};
       }
     render() {
-        console.log('this.props.history',this.props);
+        // console.log('this.props.history',this.props);
         return(
         <NavBar
           mode="light"
