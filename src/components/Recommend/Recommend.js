@@ -7,11 +7,13 @@ import { Carousel} from "antd-mobile";
 import { Button, Icon } from 'antd';
 import 'antd/dist/antd.css'; 
 import { withRouter,Route } from "react-router-dom";
-import SongList from '../SongList/SongList';
+import DiscList from '../DiscList/DiscList';
 import MyLoading from "../common/Loading/Loading";
 import LazyLoad, { forceCheck } from "react-lazyload";
 import * as AlbumModel from "../../model/album";
 import AlbumList from "../Album/AlbumList";
+import DiscListDetail from "../DiscList/DiscListDetail";
+import AlbumDetail from "../Album/AlbumDetail";
 
 class Recommend extends Component {
   constructor(props) {
@@ -36,7 +38,6 @@ class Recommend extends Component {
     getCarouseList().then(res => {
       if (res) {
         if (res.code === CODE_SUCCESS) {
-          console.log(res.data.slider);
           this.setState({
             sliderList: res.data.slider
           });
@@ -118,13 +119,13 @@ class Recommend extends Component {
     //热门歌单
     let discsList = "";
     let {match} = this.props;
-    console.log('跳转歌单链接：',this.props.history);
+    // console.log('跳转歌单链接：',this.props.history);
     discsList = this.state.discList.map((item, index) => {
       return (
-        <li className="row-li" key={index} onClick={this.toMusicList(`${match.url + '/' + item.dissid}`)}>
+        <li className="row-li" key={index} onClick={this.toMusicList(`${match.url +  '/disclist' +'/' + item.dissid}`)}>
           <div className="music-img">
                 <LazyLoad height={100}>
-                  <img src={item.imgurl} alt="" />
+                  <img src={item.imgurl} alt="" onError={(e) => { e.currentTarget.src = require("../../images/music.png");}}/>
                 </LazyLoad>
           </div>
           <div className="text">
@@ -143,7 +144,7 @@ class Recommend extends Component {
           <li className="row-li" key={album.mId} onClick={this.toMusicList(`${match.url + '/' + album.mId}`)}>
             <div className="music-img">
                 <LazyLoad height={100}>
-                  <img src={album.img} alt={album.name} />
+                  <img src={album.img} alt={album.name} onError={(e) => { e.currentTarget.src = require("../../images/music.png");}}/>
                 </LazyLoad>
             </div>
             <div className="text">
@@ -177,7 +178,7 @@ class Recommend extends Component {
               热门歌单推荐
             </h1>
             <Icon type="right-circle-o" className="icon-more"
-            onClick={this.toMusicList(`${match.url + '/songlist'}`)}/>
+            onClick={this.toMusicList(`${match.url + '/disclist'}`)}/>
             <ul>{discsList}</ul>   
           </div>
           <div className="hotlist" id="albums" style={this.state.isData === true ? {} : {display:"none"}}>
@@ -189,10 +190,10 @@ class Recommend extends Component {
             <ul className="album-ul">{AlbumsItem}</ul>   
           </div>  
         </div>
-        <Route path={`${match.url + '/songlist'}`} component={SongList} />
-        {/* <Route path={`${match.url + '/songlist' + '/:id'}`} component={SongListDetail} /> */}
+        <Route path={`${match.url + '/disclist'}`} component={DiscList} />
+        <Route path={`${match.url + '/disclist' + '/:id'}`} component={DiscListDetail} />
         <Route path={`${match.url + '/albumlist'}`} component={AlbumList} />
-        {/* <Route path={`${match.url + '/albumlist' + '/:id'}`} component={AlbumListDetail} /> */}
+        <Route path={`${match.url + '/:id'}`} component={AlbumDetail} />
       </Scroll>
       <MyLoading isloading={this.state.loadings}/>
     </div>

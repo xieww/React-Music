@@ -125,10 +125,5 @@
     "babel-plugin-import": "^1.6.3",
     "gh-pages": "^1.1.0",
     "redux-devtools-extension": "^2.13.2"
-  },
-  "proxy": {
-    "/api": {
-      "target": "https://c.y.qq.com"
-    }
   }
 }

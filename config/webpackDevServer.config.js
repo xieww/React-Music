@@ -19,6 +19,10 @@ var axios = require('axios');
 
 var apiRoutes = express.Router()
 
+/**
+ * @author xieww
+ * @description 获取热门歌单信息
+ */
 apiRoutes.get('/getDiscList', function (req, res) {
   var url = 'https://c.y.qq.com/splcloud/fcgi-bin/fcg_get_diss_by_tag.fcg'
   axios.get(url, {
@@ -34,6 +38,44 @@ apiRoutes.get('/getDiscList', function (req, res) {
   })
 })
 
+/**
+ * @author xieww
+ * @description 获取热门歌单详情
+ */
+// apiRoutes.get('/getDiscDetail', function (req, res) {
+//   var url = 'http://ustbhuangyi.com/music/api/getCdInfo'
+//   axios.get(url, {
+//     headers: {
+//       referer: 'http://ustbhuangyi.com/music/',
+//       host: 'ustbhuangyi.com'
+//     },
+//     params: req.query
+//   }).then((response) => {
+//     res.json(response.data)
+//   }).catch((e) => {
+//     console.log(e)
+//   })
+// })
+
+apiRoutes.get('/getDiscDetail', function (req, res) {
+  var url = 'https://c.y.qq.com/qzone/fcg-bin/fcg_ucc_getcdinfo_byids_cp.fcg'
+  axios.get(url, {
+    headers: {
+      referer: 'https://y.qq.com/portal/playlist.html',
+      
+    },
+    params: req.query
+  }).then((response) => {
+    res.json(response.data)
+  }).catch((e) => {
+    console.log(e)
+  })
+})
+
+/**
+ * @author xieww
+ * @description 获取歌词信息
+ */
 apiRoutes.get('/lyric', function (req, res) {
   var url = 'https://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric_new.fcg'
 

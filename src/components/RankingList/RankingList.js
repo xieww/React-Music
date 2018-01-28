@@ -28,7 +28,7 @@ class RankingList extends Component {
     getTopList().then(res =>{
       if (res) {
         if (res.code === CODE_SUCCESS) {
-          console.log('排行榜信息',res);
+          // console.log('排行榜信息',res);
           let topList = [];
 					res.data.topList.forEach(item => {
 						if (/MV/i.test(item.topTitle)) {
@@ -70,7 +70,7 @@ class RankingList extends Component {
 
     let {match} = this.props;
     let rankFristList = '';
-    console.log('listenCount=',this.state.rankingList);
+    // console.log('listenCount=',this.state.rankingList);
     rankFristList = this.state.rankingList.map((item,index) => {
       return (
         <li key={item.id} className="rank-li" onClick={this.toSongListDetail(`${match.url + '/' + item.id}`)}>

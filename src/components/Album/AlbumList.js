@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link,withRouter } from "react-router-dom";
+import { Route,withRouter } from "react-router-dom";
 import "./AlbumList.less";
 import NavHeadBar from "../common/NavHeaderBar/NavHeadBar";
 import { CSSTransition } from "react-transition-group";
@@ -9,6 +9,7 @@ import Scroll from "../../utils/scroll";
 import MyLoading from "../common/Loading/Loading";
 import LazyLoad, { forceCheck } from "react-lazyload"
 import * as AlbumModel from "../../model/album";
+import AlbumDetail from "./AlbumDetail";
 
 class SongList extends Component {
   constructor(props) {
@@ -72,8 +73,8 @@ class SongList extends Component {
       return (
           <li className="row-li" key={album.mId} onClick={this.toMusicList(`${match.url + '/' + album.mId}`)}>
             <div className="music-img">
-                <LazyLoad>
-                  <img src={album.img} alt={album.name} />
+                <LazyLoad height={50}>
+                  <img src={album.img} alt={album.name} onError={(e) => { e.currentTarget.src = require("../../images/music.png");}}/>
                 </LazyLoad>
             </div>
             <div className="text">
@@ -96,6 +97,7 @@ class SongList extends Component {
                 <ul>{AlbumsItem}</ul>   
               </div>
           </div>
+          <Route path={`${match.url  + '/:id'}`} component={AlbumDetail} />
           </Scroll>
           <MyLoading isloading={this.state.loadings}/>
         </div>
