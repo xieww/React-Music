@@ -12,7 +12,31 @@
             box-sizing: border-box;
             height: 64px;
             font-size: 14px;    
-
+            .rank {
+                flex: 0 0 25px;
+                width: 25px;
+                margin-right: 30px;
+                text-align: center;
+                .icon {
+                    display: inline-block;
+                    width: 25px;
+                    height: 24px;
+                    background-size: 25px 24px;
+                    &.icon0 {
+                        background-image: url(./first.png);
+                    }
+                    &.icon1 {
+                        background-image: url(./second.png);
+                    }
+                    &.icon2 {
+                        background-image: url(./third.png);
+                    }
+                }
+                .text {
+                    color: #ffcd32;
+                    font-size: 18px;
+                }
+            }
             .content {
                 flex: 1;
                 line-height: 20px;
@@ -53,6 +77,4 @@
                 }
             }
         }
-    
-
 }

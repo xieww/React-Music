@@ -72,7 +72,7 @@ class DetailListView extends Component {
                             <Scroll refresh={this.props.refresh}
                                 onScroll={this.scroll} ref="list-songs" className="list-songs">
                                 <div className="song-scroll">
-                                    <SongItem list={this.props.list}/>
+                                    <SongItem list={this.props.list} iconShow= {this.props.iconShow}/>
                                 </div>
                             </Scroll> 
                         </div>       

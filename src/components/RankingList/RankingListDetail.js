@@ -20,7 +20,8 @@ class RankingListDetail extends Component {
         headerTitle: "",
         songLists: [],
         bgImg: "",
-        ranking: {}
+        ranking: {},
+        iconShow: true,
       };
     }
 
@@ -79,12 +80,11 @@ class RankingListDetail extends Component {
                 <DetailListView 
                     list={this.state.songLists} 
                     isData={this.state.isData} 
-
+                    iconShow= {this.state.iconShow}
                     loading={this.state.loadings}
                     rankings={this.state.ranking}
                     refresh={this.state.refreshScroll}
                     />
-                排行榜详情页
             </div>
         )
     }
