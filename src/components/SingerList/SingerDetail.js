@@ -3,6 +3,7 @@ import ReactDOM from "react-dom"
 import { CSSTransition } from "react-transition-group";
 import NavHeadBar from "../common/NavHeaderBar/NavHeadBar";
 import { getSingerInfo } from "../../Api/singer";
+import { getSongVKey } from "../../Api/song";
 import { CODE_SUCCESS } from "../../Api/config";
 import * as SingerModel from "../../model/singer";
 import * as SongModel from "../../model/song";
@@ -51,9 +52,14 @@ class SingerDetail extends Component {
                     songList.forEach((item) => {
                       let {musicData} = item
                       if (musicData.songid && musicData.albummid) {
-                        songs.push(SongModel.createSong(musicData))
+                        // songs.push(SongModel.createSong(musicData));
+                        let song = SongModel.createSong(musicData);
+                        //获取歌曲vkey
+                        this.getSongUrl(song, musicData.songmid);
+                        songs.push(song);
                       }
-                    })
+                    });
+                    // console.log('--------------',songs);
                     
                     this.setState({
                         singer: singer,
@@ -69,6 +75,24 @@ class SingerDetail extends Component {
             }
         })
     };
+
+    /**@author xieww
+     * @description 获取歌曲地址
+     * @param {*} song 
+     * @param {*} mId 
+     */
+    getSongUrl(song, mId) {
+		getSongVKey(mId).then((res) => {
+			if (res) {
+				if(res.code === CODE_SUCCESS) {
+					if(res.data.items) {
+						let item = res.data.items[0];
+						song.url =  `http://dl.stream.qqmusic.qq.com/${item.filename}?vkey=${item.vkey}&guid=3655047200&fromtag=66`
+					}
+				}
+			}
+		});
+	};
 
     /**
 	 * 监听scroll

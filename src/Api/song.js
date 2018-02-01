@@ -48,5 +48,5 @@ export function getSongVKey(songMid) {
 		param: "callback",
 		prefix: "callback"
 	};
-	return jsonp(URL.songVkey, data, OPTION);
+	return jsonp(URL.songVkey, data, option);
 };

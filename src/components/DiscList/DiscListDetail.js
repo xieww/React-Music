@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { getSongList } from "../../Api/recommend";
+import { getSongVKey } from "../../Api/song";
 import { CODE_SUCCESS } from "../../Api/config";
 import ReactDOM from "react-dom";
 import * as SongModel from "../../model/song";
@@ -36,10 +37,13 @@ class DiscListDetail extends Component {
                     let songs = [];
                     songList.forEach((item) => {
                       if (item.songid && item.albummid) {
-                        songs.push(SongModel.createSong(item))
+                        let song = SongModel.createSong(item);
+                        //获取歌曲vkey
+                        this.getSongUrl(song, item.songmid);
+                        songs.push(song);
                       }
                     });
-                    // console.log('songs',songs);
+                    console.log('songs',songs);
                     this.setState({
                         songLists: songs,
                         headerLitle: res.cdlist[0].dissname,
@@ -53,7 +57,25 @@ class DiscListDetail extends Component {
                 }
             }
         })
-    }
+    };
+
+    /**@author xieww
+     * @description 获取歌曲地址
+     * @param {*} song 
+     * @param {*} mId 
+     */
+    getSongUrl(song, mId) {
+		getSongVKey(mId).then((res) => {
+			if (res) {
+				if(res.code === CODE_SUCCESS) {
+					if(res.data.items) {
+						let item = res.data.items[0];
+						song.url =  `http://dl.stream.qqmusic.qq.com/${item.filename}?vkey=${item.vkey}&guid=3655047200&fromtag=66`
+					}
+				}
+			}
+		});
+	};
 
     /**
 	 * 监听scroll

@@ -3,13 +3,13 @@ import { List, Badge,Icon,  ActionSheet} from 'antd-mobile';
 import { Button } from 'antd';
 import "./SongItem.less";
 
-const isIPhone = new RegExp('\\biPhone\\b|\\biPod\\b', 'i').test(window.navigator.userAgent);
-let wrapProps;
-if (isIPhone) {
-  wrapProps = {
-    onTouchStart: e => e.preventDefault(),
-  };
-};
+// const isIPhone = new RegExp('\\biPhone\\b|\\biPod\\b', 'i').test(window.navigator.userAgent);
+// let wrapProps;
+// if (isIPhone) {
+//   wrapProps = {
+//     onTouchStart: e => e.preventDefault(),
+//   };
+// };
 
 class SongItem extends Component {
     constructor(props) {
@@ -30,16 +30,16 @@ class SongItem extends Component {
         title: obj.title,
     }));
 
-    showShareActionSheetMulpitleLine = () => {
-        // const data = [[...this.dataList, this.dataList[2]]];
-        ActionSheet.showShareActionSheetWithOptions({
-          options: this.dataList,
-          message: 'I am description, description, description',
-        },
-        (buttonIndex) => {
-          this.setState({ clicked2: buttonIndex > -1 ? this.dataList[buttonIndex].title : 'cancel'});
-        });
-    }
+    // showShareActionSheetMulpitleLine = () => {
+    //     // const data = [[...this.dataList, this.dataList[2]]];
+    //     ActionSheet.showShareActionSheetWithOptions({
+    //       options: this.dataList,
+    //       message: 'I am description, description, description',
+    //     },
+    //     (buttonIndex) => {
+    //       this.setState({ clicked2: buttonIndex > -1 ? this.dataList[buttonIndex].title : 'cancel'});
+    //     });
+    // }
 
     getRankCls(index) {
         if (index <= 2) {

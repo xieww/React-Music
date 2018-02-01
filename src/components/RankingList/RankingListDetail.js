@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { getMusicList } from "../../Api/rankinglist";
+import { getSongVKey } from "../../Api/song";
 import { CODE_SUCCESS } from "../../Api/config";
 import Scroll from "../../utils/scroll";
 import { withRouter,Route } from "react-router-dom";
@@ -45,9 +46,14 @@ class RankingListDetail extends Component {
                     songList.forEach((item) => {
                         const musicData = item.data
                       if (musicData.songid && musicData.albummid) {
-                        songs.push(SongModel.createSong(musicData))
+                        // songs.push(SongModel.createSong(musicData));
+                        let song = SongModel.createSong(musicData);
+                        //获取歌曲vkey
+                        this.getSongUrl(song, musicData.songmid);
+                        songs.push(song);
                       }
                     });
+                    // console.log('--------------',songs);
                     this.setState({
 						ranking: ranking,
                         songLists: songs,
@@ -66,6 +72,23 @@ class RankingListDetail extends Component {
         })
     };
 
+    /**@author xieww
+     * @description 获取歌曲地址
+     * @param {*} song 
+     * @param {*} mId 
+     */
+    getSongUrl(song, mId) {
+		getSongVKey(mId).then((res) => {
+			if (res) {
+				if(res.code === CODE_SUCCESS) {
+					if(res.data.items) {
+						let item = res.data.items[0];
+						song.url =  `http://dl.stream.qqmusic.qq.com/${item.filename}?vkey=${item.vkey}&guid=3655047200&fromtag=66`
+					}
+				}
+			}
+		});
+	};
     componentDidMount() {
         this.setState({
             show: true,

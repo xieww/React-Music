@@ -48,7 +48,7 @@ export function createSong(data) {
 		data.songname,
 		`http://y.gtimg.cn/music/photo_new/T002R300x300M000${data.albummid}.jpg?max_age=2592000`,
 		data.interval,
-		`http://ws.stream.qqmusic.qq.com/${data.songid}.m4a?fromtag=46`,
+		"",
 		filterSinger(data.singer),
 		data.albumname,
 		data.isonly,

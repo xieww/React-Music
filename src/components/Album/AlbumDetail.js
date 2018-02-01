@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { getAlbumInfo } from "../../Api/recommend";
+import { getSongVKey } from "../../Api/song";
 import { CODE_SUCCESS } from "../../Api/config";
 import ReactDOM from "react-dom";
 import * as SongModel from "../../model/song";
@@ -32,15 +33,19 @@ class AlbumDetail extends Component {
         getAlbumInfo(mId).then((res) => {
             if (res) {
                 if (res.code === CODE_SUCCESS) {
-                    console.log('专辑详情',res);
+                    // console.log('专辑详情',res);
                     let songList = res.data.list;
                     let album = AlbumModel.createAlbumByDetail(res.data);
                     album.desc = res.data.desc;
                     
                     let songs = []
-                    songList.forEach((item) => {
+                    songList.forEach(item => {
                       if (item.songid && item.albummid) {
-                        songs.push(SongModel.createSong(item))
+                        let song = SongModel.createSong(item);
+                        //获取歌曲vkey
+                        this.getSongUrl(song, item.songmid);
+                        songs.push(song);
+                        // songs.push(SongModel.createSong(item));
                       }
                     });
                     console.log('songs',songs);
@@ -58,6 +63,24 @@ class AlbumDetail extends Component {
             }
         })
     }
+
+    /**@author xieww
+     * @description 获取歌曲地址
+     * @param {*} song 
+     * @param {*} mId 
+     */
+    getSongUrl(song, mId) {
+		getSongVKey(mId).then((res) => {
+			if (res) {
+				if(res.code === CODE_SUCCESS) {
+					if(res.data.items) {
+						let item = res.data.items[0];
+						song.url =  `http://dl.stream.qqmusic.qq.com/${item.filename}?vkey=${item.vkey}&guid=3655047200&fromtag=66`
+					}
+				}
+			}
+		});
+	};
 
     /**
 	 * 监听scroll

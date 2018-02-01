@@ -5,8 +5,10 @@ import Recommend from "./components/Recommend/Recommend";
 import RankingList from "./components/RankingList/RankingList";
 import Search from "./components/SearchPage/SearchPage";
 import SingerList from "./components/SingerList/SingerList";
-import {BrowserRouter as Router, Route, Switch, Redirect, NavLink} from "react-router-dom"
-import './App.less';
+import {BrowserRouter as Router, Route, Switch, Redirect, NavLink} from "react-router-dom";
+import Player from "./components/common/Player/Player";
+import "./App.less";
+
 
 class App extends Component {
 
@@ -29,7 +31,8 @@ class App extends Component {
                   <Route path="/recommend" component={Recommend} />
                   <Route path="/singer" component={SingerList} />
                   <Route path="/rankinglist" component={RankingList} />
-                  <Route path="/search" component={Search} />
+                  <Route path="/search" component={Search} /> 
+                  <Route path="/player" component={Player} />
                   <Redirect from="/" to="/recommend" />
                   <Route component={Recommend} />
                 </Switch>
