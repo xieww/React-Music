@@ -8,7 +8,7 @@ import SingerList from "./components/SingerList/SingerList";
 import {BrowserRouter as Router, Route, Switch, Redirect, NavLink} from "react-router-dom";
 import Player from "./components/common/Player/Player";
 import "./App.less";
-
+import MusicPlayer from "./components/common/Player/MusicPlayer";
 
 class App extends Component {
 
@@ -37,6 +37,7 @@ class App extends Component {
                   <Route component={Recommend} />
                 </Switch>
               </div>
+              <MusicPlayer/>
           </div>
       </Router>
     );

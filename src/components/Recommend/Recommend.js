@@ -14,6 +14,7 @@ import * as AlbumModel from "../../model/album";
 import AlbumList from "../Album/AlbumList";
 import DiscListDetail from "../DiscList/DiscListDetail";
 import AlbumDetail from "../Album/AlbumDetail";
+import Album from "../../reduxs/containers/Album";
 
 class Recommend extends Component {
   constructor(props) {
@@ -193,7 +194,7 @@ class Recommend extends Component {
         <Route path={`${match.url + '/disclist'}`} component={DiscList} />
         <Route path={`${match.url + '/disclist' + '/:id'}`} component={DiscListDetail} />
         <Route path={`${match.url + '/albumlist'}`} component={AlbumList} />
-        <Route path={`${match.url + '/:id'}`} component={AlbumDetail} />
+        <Route path={`${match.url + '/:id'}`} component={Album} />
       </Scroll>
       <MyLoading isloading={this.state.loadings}/>
     </div>

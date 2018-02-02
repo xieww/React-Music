@@ -55,7 +55,19 @@ class SongItem extends Component {
         }
     };
 
+    /**
+	 * 选择歌曲
+	 */
+	selectSong(song) {
+		return (e) => {
+			this.props.setSongs([song]);
+			this.props.changeCurrentSong(song);
+			// this.startMusicIcoAnimation(e.nativeEvent);
+		};
+    };
+
     render() {
+        // console.log('this.props2222',this.props);
         let songItems = "";
         songItems = this.props.list.map((item,index) => {
 
@@ -66,7 +78,7 @@ class SongItem extends Component {
                 pItem = <p className="song-info">{item.singer}·{item.album}</p>;
             }
             return (
-                <li className="item-li" key={index}>
+                <li className="item-li" key={index} onClick={this.selectSong(item)}>
                     <div className="rank"  style={this.props.iconShow === true ? {display:"block"} : {display:"none"}}>
                         <span className={index <= 2 ? `icon icon${index}` : 'text'}>
                             {this.getRankText(index)}
