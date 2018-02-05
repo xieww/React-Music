@@ -32,7 +32,7 @@ class MusicPlayer extends React.Component {
 	 * @param {*} status
 	 */
 	showList = (status,mode) => {
-		console.log('列表'+ mode);
+		
 		this.setState({
 			show: status,
 			fullPlayerModes: mode,

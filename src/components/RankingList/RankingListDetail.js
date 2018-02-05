@@ -66,7 +66,7 @@ class RankingListDetail extends Component {
 						this.setState({refreshScroll:true});
 					});
 
-                    console.log('songs',songs,ranking);
+                    // console.log('songs',songs,ranking);
                 }
             }
         })
@@ -93,11 +93,13 @@ class RankingListDetail extends Component {
         this.setState({
             show: true,
           });
+
         let id = this.props.match.params.id;
         this.getMusicListDetail(id);
     };
 
     render() {
+        
         return (
             <div className="ranking-detail">
                 <DetailListView 
@@ -107,6 +109,11 @@ class RankingListDetail extends Component {
                     loading={this.state.loadings}
                     rankings={this.state.ranking}
                     refresh={this.state.refreshScroll}
+                    changeCurrentSong={this.props.changeCurrentSong}
+                    currentSong={this.props.currentSong}
+                    playSongs={this.props.playSongs}
+                    setSongs={this.props.setSongs}
+                    showMusicPlayer={this.props.showMusicPlayer}
                     />
             </div>
         )

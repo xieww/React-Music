@@ -45,6 +45,19 @@ class DetailListView extends Component {
 			playButtonWrapperDOM.style.marginTop = `${y}px`;
 		}
     };
+
+    /**
+   * 播放全部
+   */
+    playAll = () => {
+      if (this.props.list.length > 0) {
+        //添加播放歌曲列表
+        
+        this.props.setSongs(this.props.list);
+        this.props.changeCurrentSong(this.props.list[0]);
+        this.props.showMusicPlayer(true);
+      }
+    };
     componentDidMount() {
         this.setState({
             show: true,
@@ -65,7 +78,7 @@ class DetailListView extends Component {
         return <CSSTransition in={this.state.show} timeout={300} classNames="translate">
             <div className="singer-detail">
               <div>
-                <NavHeadBar title={this.props.rankings.title} className="singer-title" ref="header" />
+                <NavHeadBar title={this.props.rankings.title} className="singer-title"/>
                 <div style={{ position: "relative" }} className="singer-bg">
                   <div ref="albumBg" className="singer-img" style={{ backgroundImage: `url(${this.props.rankings.img})`, backgroundRepeat: "no-repeat" }}>
                     <div className="filter" />
@@ -74,7 +87,7 @@ class DetailListView extends Component {
                     <div className="filter" />
                   </div>
                   <div className="play-wrapper" ref="playButtonWrapper" style={this.props.isData === true ? {} : { display: "none" }}>
-                    <div className="play" ref="playBtn">
+                    <div className="play" ref="playBtn" onClick={this.playAll}>
                       <Button icon="play-circle-o" ghost className="btn">
                         全部播放
                       </Button>
@@ -88,7 +101,15 @@ class DetailListView extends Component {
                       <StickyContainer style={this.props.isData === true ? {} : { display: "none" }}>
                         <Tabs tabs={tabs} renderTabBar={this.renderTabBar} tabBarBackgroundColor={"#2A4F56"} swipeable={false}>
                           <div className="song-scroll">
-                            <SongItem list={this.props.list} iconShow={this.props.iconShow} />
+                            <SongItem 
+                              list={this.props.list} 
+                              iconShow={this.props.iconShow} 
+                              setSongs={this.props.setSongs}
+                              showMusicPlayer={this.props.showMusicPlayer}
+                              changeCurrentSong={this.props.changeCurrentSong}
+                              playSongs={this.props.playSongs}
+                              currentSong={this.props.currentSong}
+                              />
                           </div>
                           <div className="detail_info">
                             <div dangerouslySetInnerHTML={{__html: this.props.rankings.info}} className="content-info"></div>

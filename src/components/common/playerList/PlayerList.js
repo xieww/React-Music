@@ -144,7 +144,7 @@ class PlayerList extends Component {
         let isShowList = this.state.showList === true ? {display: 'block'} : {display: 'none'};
         let titleText = playModesText + "(" +this.props.playSongs.length + "首)";
         let playList = this.props.playSongs;
-        console.log('this.props.playSongs',this.props.playSongs);
+        
         let songPlayList = "";
         songPlayList = this.props.playSongs.map((item,index) => {
             let isCurrent = false;

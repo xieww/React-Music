@@ -8,6 +8,7 @@ import LazyLoad, { forceCheck } from "react-lazyload";
 import * as RankingModel from "../../model/rankingList";
 import "./RankingList.less";
 import RankingListDetail from "./RankingListDetail";
+import Ranking from "../../reduxs/containers/Ranking";
 
 class RankingList extends Component {
   constructor(props) {
@@ -105,7 +106,7 @@ class RankingList extends Component {
               <ul className="rank-ul">
                 {rankFristList}
               </ul>
-              <Route path={`${match.url + '/:id'}`} component={RankingListDetail} />
+              <Route path={`${match.url + '/:id'}`} component={Ranking} />
           </Scroll>
           <MyLoading isloading={this.state.loadings}/>
       </div>
