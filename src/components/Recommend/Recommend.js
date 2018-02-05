@@ -15,6 +15,7 @@ import AlbumList from "../Album/AlbumList";
 import DiscListDetail from "../DiscList/DiscListDetail";
 import AlbumDetail from "../Album/AlbumDetail";
 import Album from "../../reduxs/containers/Album";
+import Disc from "../../reduxs/containers/Disc";
 
 class Recommend extends Component {
   constructor(props) {
@@ -192,7 +193,7 @@ class Recommend extends Component {
           </div>  
         </div>
         <Route path={`${match.url + '/disclist'}`} component={DiscList} />
-        <Route path={`${match.url + '/disclist' + '/:id'}`} component={DiscListDetail} />
+        <Route path={`${match.url + '/disclist' + '/:id'}`} component={Disc} />
         <Route path={`${match.url + '/albumlist'}`} component={AlbumList} />
         <Route path={`${match.url + '/:id'}`} component={Album} />
       </Scroll>

@@ -9,6 +9,7 @@ import Scroll from "../../utils/scroll";
 import MyLoading from "../common/Loading/Loading";
 import LazyLoad, { forceCheck } from "react-lazyload"
 import DiscListDetail from "./DiscListDetail";
+import Disc from "../../reduxs/containers/Disc";
 
 class DiscList extends Component {
   constructor(props) {
@@ -101,7 +102,7 @@ class DiscList extends Component {
                 <ul>{discsList}</ul>   
               </div>
           </div>
-          <Route path={`${match.url  + '/:id'}`} component={DiscListDetail} />
+          <Route path={`${match.url  + '/:id'}`} component={Disc} />
           </Scroll>
           <MyLoading isloading={this.state.loadings}/>
         </div>
