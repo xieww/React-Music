@@ -1,0 +1,107 @@
+// .player-list {
+
+//     .player-list-body {
+//         // position: fixed;
+//         // top: 0;
+//         // left: 0;
+//         // // z-index: 1002;
+//         // width: 100%;
+//         // height: 100%;
+//         // background-color: rgba(0, 0, 0, 0.3);
+//         // transform: translate3d(0, 0, 0);
+
+// }
+
+.modal-list {
+    background: #1E484F !important;
+    // background: rgba(0,0,0,.4);
+ 
+    // filter:alpha(Opacity=90);
+    // -moz-opacity:0.9;
+    // opacity: 0.9;
+    color: #fff;
+    .popup-list {
+        background: #1E484F !important;
+
+        .am-list-header {
+            color: #fff;
+            padding: 10px 10px 5px 10px;
+            // margin-bottom: -6px;
+            .player-list-title {
+                margin-bottom: -10px;
+                .title-top {
+                    display: flex;
+                    align-items: center;
+                    .title-icon {
+                        margin-right: 10px;
+                        font-size: 20px;
+                        color: rgba(255,205,49,.5);
+                    }
+                    .text {
+                        flex: 1;
+                        font-size: 14px;
+                        color: hsla(0,0%,100%,.5);
+                        // padding-left: 1px;
+                        margin-left: -54%;
+                        
+                    }
+                    .add-music {
+                        font-size: 20px;
+                        color: hsla(0,0%,100%,.5);
+                    }
+                    .icon-clear {
+                        font-size: 20px;
+                        color: hsla(0,0%,100%,.5);
+                        padding-left: 10px;
+                    }
+                }
+            }
+        }
+        .am-list-body {
+            height: 299px;
+            overflow: auto;
+            background: #1E484F !important;
+            color: #fff;
+
+            .am-list-item {
+                background: #1E484F !important;
+                color: #fff;
+                &.activeIndex {
+                    .song-name,.song-singer {
+                        color: #31c27c !important;
+                    }
+                }
+                .am-list-content {
+                    color: #fff;
+                    .song-name {
+                        font-size: 15px;
+                    }
+                    .song-singer {
+                        font-size: 12px;
+                        color: rgba(255,255,255,.5);
+                    }
+                    .list-close {
+                        position: absolute;
+                        right: 0;
+                        padding-right: 13px;
+                    }
+                }
+            }
+          }
+       }  
+       .am-list-footer {
+           background: #1E484F!important;
+           padding: 0 ;
+           .am-button {
+               background: #1E484F!important;
+               color: hsla(0,0%,100%,.5);
+                border: none;
+                border-radius: 0;
+               &:before {
+                    border: none;
+                    border-radius: 0 !important;
+                }
+           }
+
+       }
+}
