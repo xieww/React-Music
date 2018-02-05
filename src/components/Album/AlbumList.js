@@ -10,6 +10,7 @@ import MyLoading from "../common/Loading/Loading";
 import LazyLoad, { forceCheck } from "react-lazyload"
 import * as AlbumModel from "../../model/album";
 import AlbumDetail from "./AlbumDetail";
+import Album from "../../reduxs/containers/Album";
 
 class SongList extends Component {
   constructor(props) {
@@ -97,7 +98,7 @@ class SongList extends Component {
                 <ul>{AlbumsItem}</ul>   
               </div>
           </div>
-          <Route path={`${match.url  + '/:id'}`} component={AlbumDetail} />
+          <Route path={`${match.url  + '/:id'}`} component={Album} />
           </Scroll>
           <MyLoading isloading={this.state.loadings}/>
         </div>

@@ -7,5 +7,8 @@ export const CHANGE_SONG = "CHANGE_SONG";
 //从歌曲列表中移除歌曲
 export const REMOVE_SONG_FROM_LIST = "REMOVE_SONG";
 
+//移除歌曲列表中的所有歌曲
+export const REMOVE_ALLSONG_FROM_LIST = "REMOVE_ALLSONG";
+
 //设置歌曲列表
 export const SET_SONGS = "SET_SONGS";

@@ -2,6 +2,12 @@ import {connect} from "react-redux"
 import {showPlayer, changeSong, setSongs} from "../actions/actions"
 import Album from "../../components/Album/AlbumDetail";
 
+//映射Redux全局的state到组件的props上
+const mapStateToProps = (state) => ({
+	currentSong: state.song,
+	playSongs: state.songs
+});
+
 //映射dispatch到props上
 const mapDispatchToProps = (dispatch) => ({
 	showMusicPlayer: (status) => {
@@ -15,4 +21,4 @@ const mapDispatchToProps = (dispatch) => ({
 	}
 });
 
-export default connect(null, mapDispatchToProps)(Album)
+export default connect(mapStateToProps, mapDispatchToProps)(Album)

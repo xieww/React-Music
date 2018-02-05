@@ -42,9 +42,12 @@ class ProgressBar extends Component {
 
     componentDidMount() {
         // this.progressBarWidth = ReactDOM.findDOMNode(this.refs.progressValue);
+
+        let {disableButton, disableDrag, onDragStart, onDrag, onDragEnd} = this.props;
+        // console.log('this.props',this.props);
         this.progressBarWidth = this.state.slider;
-        // console.log('slider',this.state.slider);
-    }
+
+    };
 
     getProgressValue = (event,value) => {
         this.setState({
@@ -54,14 +57,15 @@ class ProgressBar extends Component {
     }
     render() {
 
-        let {progress, onDrag, onDragEnd}  = this.props;
+        // let {progress, onDrag, onDragEnd}  = this.props;
+        let {progress, disableButton, disableDrag, onDragStart, onDrag, onDragEnd} = this.props;
         if (progress !== 0) {
             progress = 0;
         }
         if (this.state.slider) {
             progress = this.state.slider;
         }
-        // console.log('this.props',this.props);
+        // console.log('this.props.disableButton',this.props.disableButton);
         //onDragStart onDragStop
         return (
             <MuiThemeProvider muiTheme={this.muiTheme}>

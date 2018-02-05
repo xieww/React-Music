@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { List, Badge,Icon,  ActionSheet} from 'antd-mobile';
+import { List, Badge,Icon,  ActionSheet, Toast} from 'antd-mobile';
 import { Button } from 'antd';
 import "./SongItem.less";
 
@@ -56,15 +56,32 @@ class SongItem extends Component {
     };
 
     /**
-	 * 选择歌曲
-	 */
-	selectSong(song) {
-		return (e) => {
-			this.props.setSongs([song]);
-			this.props.changeCurrentSong(song);
-			// this.startMusicIcoAnimation(e.nativeEvent);
-		};
-    };
+     * @author xieww
+     * @description 选择歌曲，如果歌曲已经存在则不添加
+     * @param {*} song 
+     */
+    selectSong(song){
+        // console.log('=======this.props=======',this.props);
+        return () => {
+            if (this.props.currentSong.id !== undefined) {
+                if (this.props.currentSong.id === song.id) {
+                    // Toast.fail('歌曲已经存在!!!', 1);
+                    return;
+                } else {
+                    let tempPlaySongs = this.props.playSongs;
+                    let tempSongList = tempPlaySongs.concat(song);
+                    this.props.setSongs(tempSongList);
+                    this.props.changeCurrentSong(song);
+                    this.props.showMusicPlayer(true);
+                    Toast.success('歌曲已添加到播放队列',1);
+                }
+            } else {
+                    this.props.setSongs([song]);
+                    this.props.changeCurrentSong(song);
+                    this.props.showMusicPlayer(true);
+            }
+        }
+    }
 
     render() {
         // console.log('this.props2222',this.props);

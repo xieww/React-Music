@@ -95,7 +95,7 @@ class AlbumDetail extends Component {
 	playAll = () => {
 		if (this.state.songLists.length > 0) {
             //添加播放歌曲列表
-            
+            // console.log('this.props',this.props);
 			this.props.setSongs(this.state.songLists);
 			this.props.changeCurrentSong(this.state.songLists[0]);
 			this.props.showMusicPlayer(true);
@@ -144,7 +144,7 @@ class AlbumDetail extends Component {
             <CSSTransition in={this.state.show} timeout={300} classNames="translate">
                 <div className="singer-detail">
                     <div>
-                        <NavHeadBar title = {this.state.headerLitle} className="singer-title" ref="header"/>
+                        <NavHeadBar title = {this.state.headerLitle} className="singer-title"/>
                         <div style={{position:"relative"}} className="singer-bg">
                             <div ref="albumBg" className="singer-img" style={{backgroundImage: `url(${album.img})`}}>
                                 <div className="filter"></div>
@@ -167,7 +167,10 @@ class AlbumDetail extends Component {
                                             list={this.state.songLists} 
                                             setSongs={this.props.setSongs}
                                             showMusicPlayer={this.props.showMusicPlayer}
-                                            changeCurrentSong={this.props.changeCurrentSong}/>
+                                            changeCurrentSong={this.props.changeCurrentSong}
+                                            playSongs={this.props.playSongs}
+                                            currentSong={this.props.currentSong}
+                                            />
                                     </div>
                                 </Scroll> 
                             </div>       

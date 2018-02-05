@@ -17,6 +17,10 @@ export function removeSong(id) {
   return { type: ActionTypes.REMOVE_SONG_FROM_LIST, id };
 }
 
+export function removeALLSong(id) {
+  return { type: ActionTypes.REMOVE_ALLSONG_FROM_LIST, id };
+}
+
 export function setSongs(songs) {
   return { type: ActionTypes.SET_SONGS, songs };
 }

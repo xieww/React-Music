@@ -131,4 +131,10 @@ const Indexs = [
   { key: "Z", name: "Z" }
 ];
 
-export { URL, commonParams, OPTION, CODE_SUCCESS, singerType, Indexs };
+const  playModeNum = {
+  sequence: 0,
+  loop: 1,
+  random: 2
+};
+
+export { URL, commonParams, OPTION, CODE_SUCCESS, singerType, Indexs, playModeNum };

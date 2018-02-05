@@ -48,6 +48,10 @@ function songs(songs = initialState.songs, action) {
 			let newSongs = songs.filter(song => song.id !== action.id);
 			// localStorage.setSongs(newSongs);
 			return newSongs;
+		case ActionTypes.REMOVE_ALLSONG_FROM_LIST:
+			let newSongss = songs.splice(0);
+			// localStorage.setSongs(newSongs);
+			return songs;
 		default:
 			return songs;
 	}

@@ -25,7 +25,7 @@ function formatTime(time){
 	}
 	return timeStr;
 }
-
+const isMove = "navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/Windows Phone/i";
 class Player extends Component {
     constructor(props) {
         super(props);
@@ -98,7 +98,15 @@ class Player extends Component {
             this.setState({
                 playStatus: true,
             });
-        }else {
+        } 
+        // else if(this.state.playStatus === true || isMove){
+        //     this.audioDOM.pause();
+		// 	this.stopImgRotate();
+        //     this.setState({
+        //         playStatus: false,
+        //     });
+        // }
+         else {
             this.audioDOM.pause();
 			this.stopImgRotate();
             this.setState({
@@ -245,7 +253,7 @@ class Player extends Component {
 	 * 开始拖拽
 	 */
 	handleDrag = (progress) => {
-        console.log('progress',progress);
+        // console.log('progress',progress);
 		if (this.audioDOM.duration > 0) {
 			this.audioDOM.pause();
 
@@ -299,18 +307,47 @@ class Player extends Component {
 	 * 停止旋转图片
 	 */
 	stopImgRotate = () => {
-		this.singerImgDOM.style["webkitAnimationPlayState"] = "paused";
+		this.singerImgDOM.style["WebkitAnimationPlayState"] = "paused";
         this.singerImgDOM.style["animationPlayState"] = "paused";
         
-        this.singerImgMiniDOM.style["webkitAnimationPlayState"] = "paused";
+        this.singerImgMiniDOM.style["WebkitAnimationPlayState"] = "paused";
 		this.singerImgMiniDOM.style["animationPlayState"] = "paused";
-	}
+    };
+    
+    showPlayerList = (e) => {
+        e.stopPropagation();
+        e.nativeEvent.stopImmediatePropagation();
+        let temp = this.state.currentPlayMode;
+        let tempStatus = this.state.playStatus;
+       
+        this.props.showList(true,temp);
+        this.props.fullplayStatus(tempStatus);
+    };
 
-    componentDidUpdate() {
+    componentWillReceiveProps(nextProps) {
+       
+        if (nextProps.playSongs.length === 0) {
+            //暂停
+            this.audioDOM.pause();
+            this.stopImgRotate();
+
+            this.setState({
+                playStatus: nextProps.pullplayerStatus,
+                playProgress: 0,
+                currentTime: 0,
+            });
+    }
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+
+    };
+
+    componentDidUpdate(prevProps, prevState) {
 		//兼容手机端canplay事件触发后第一次调用play()方法无法自动播放的问题
 		if (this.isFirstPlay === true) {
 			this.audioDOM.play();
-			this.isFirstPlay = false;
+            this.isFirstPlay = false;
 		}
 	};
     
@@ -330,7 +367,7 @@ class Player extends Component {
                 playStatus: true
             });
         }, false);
-
+        
         this.audioDOM.addEventListener("timeupdate", () => {
             if (this.state.playStatus === true) {
                 this.setState({
@@ -404,30 +441,33 @@ class Player extends Component {
 
 		let playBg = song.img ? song.img : require("../../../images/play_bg.jpg");
 
-		// //播放按钮样式
-		// let playButtonClass = this.state.playStatus === true ? "icon-pause" : "icon-play";
 
         song.playStatus = this.state.playStatus;
         
 
         // console.log('this.props.currentSong',this.props.currentSong);
         // console.log('this.props.playSongs',this.props.playSongs);
-        console.log('==========this.props============',this.props);
+        // console.log('==========this.props============',this.props);
         //播放按钮样式
         let playButtonClass = this.state.playStatus === true ? "pause-circle-o" : "play-circle-o";
         let isFavoriteIcon = this.state.favorite === true ? "heart" : "heart-o";
 
         let isFullScreen = this.state.fullScreen === true ? {} : {display:'none'};
         let isNotFullScreen = this.state.isNotFullScreen === true ? {} : {display:'none'};
-        
+        let isRorate = this.state.playStatus === true ? "cd rotate" : "cd pause";
         return (
             <div className="player-page">
                 <CSSTransition in={this.props.showStatus} timeout={300} classNames="player-rotate"
 					onEnter={() => {
-						this.playerDOM.style.display = "block";                       
+						this.playerDOM.style.display = "block"; 
+                        this.miniplayerDOM.style.display = "none" 
+                        this.setState({
+                            currentPlayMode:this.props.fullPlayerModes
+                        });                     
 					}}
 					onExited={() => {
 						this.playerDOM.style.display = "none";
+                        this.miniplayerDOM.style.display = "flex" 
 					}} name="normal">
                     <div className="normal-player"  style={isFullScreen} ref="NormalPlayer">
                         <div className="player-bg">
@@ -443,7 +483,7 @@ class Player extends Component {
                         <div className="middle">
                             <div className="middle-l" ref="middle-l">
                                 <div className="cd-wrapper" ref="cdWrapper">
-                                    <div className="cd" ref="singerImg">
+                                    <div className="cd" ref="singerImg" >
                                         {/* <img   src="https://y.gtimg.cn/music/photo_new/T002R300x300M0000004stlO2ryr7t.jpg?max_age=2592000"/> */}
                                         <img  className="cd-image" src={playBg} alt={song.name} onLoad={
                                             (e) => {
@@ -505,14 +545,6 @@ class Player extends Component {
                                 </div>
                             </div>
                         </div>
-
-                        {/* <NavBar
-                            mode="light"
-                            icon={<Icon type="down" size={sizes[4]}/>}
-                            onLeftClick={() => console.log('onLeftClick')}
-                            style={{background:"rgba(0,0,0,0)"}}
-                            color="green">
-                        </NavBar> */}
                     </div>
                 </CSSTransition>
 
@@ -534,7 +566,7 @@ class Player extends Component {
                         <div className="control" onClick={this.SwitchPlayOrPause}>
                             <Icon type={playButtonClass} className="play-icon"/>
                         </div>
-                        <div className="control">
+                        <div className="control" onClick={this.showPlayerList}>
                             <Icon type="list-menus" className="play-list"/>
                         </div>
                     </div>   
