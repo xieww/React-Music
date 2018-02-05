@@ -4,6 +4,7 @@ import LazyLoad, { forceCheck } from "react-lazyload";
 import Scroll from "../../../utils/scroll";
 import  "./ListView.less";
 import SingerDetail from "../../SingerList/SingerDetail";
+import Singer from "../../../reduxs/containers/singer";
 
 
 class ListView extends Component {
@@ -81,7 +82,7 @@ class ListView extends Component {
                     </div> */}
                    
                 </Scroll>
-                <Route path={`${match.url + '/:id'}`} component={SingerDetail} />
+                <Route path={`${match.url + '/:id'}`} component={Singer} />
             </div>
         )
     }

@@ -59,7 +59,6 @@ class SingerDetail extends Component {
                         songs.push(song);
                       }
                     });
-                    // console.log('--------------',songs);
                     
                     this.setState({
                         singer: singer,
@@ -115,7 +114,20 @@ class SingerDetail extends Component {
 			playButtonWrapperDOM.style.marginTop = `${y}px`;
 		}
     };
-    
+
+    /**
+	 * 播放全部
+	 */
+	playAll = () => {
+		if (this.state.songLists.length > 0) {
+            //添加播放歌曲列表
+            // console.log('this.props',this.props);
+			this.props.setSongs(this.state.songLists);
+			this.props.changeCurrentSong(this.state.songLists[0]);
+			this.props.showMusicPlayer(true);
+		}
+    };
+
     componentWillMount() {
     };
     componentDidMount() {
@@ -152,7 +164,7 @@ class SingerDetail extends Component {
             <CSSTransition in={this.state.show} timeout={300} classNames="translate">
                 <div className="singer-detail">
                     <div>
-                        <NavHeadBar title = {this.state.headerLitle} className="singer-title" ref="header"/>
+                        <NavHeadBar title = {this.state.headerLitle} className="singer-title"/>
                         <div style={{position:"relative"}} className="singer-bg">
                             <div ref="albumBg" className="singer-img" style={{backgroundImage: `url(${singer.avatar})`}}>
                                 <div className="filter"></div>
@@ -161,7 +173,7 @@ class SingerDetail extends Component {
                                 <div className="filter"></div>
                             </div>
                             <div className="play-wrapper" ref="playButtonWrapper" style={this.state.isData === true ? {} : {display:"none"}}>
-                                <div className="play" ref="playBtn">
+                                <div className="play" ref="playBtn" onClick={this.playAll}>
                                     <Button  icon="play-circle-o" ghost className="btn">全部播放</Button>
                                 </div>
                             </div>
@@ -171,7 +183,14 @@ class SingerDetail extends Component {
                                 <Scroll refresh={this.state.refreshScroll}
                                     onScroll={this.scroll} ref="list-songs" className="list-songs">
                                     <div className="song-scroll">
-                                        <SongItem list={this.state.songLists}/>
+                                        <SongItem 
+                                            list={this.state.songLists}
+                                            setSongs={this.props.setSongs}
+                                            showMusicPlayer={this.props.showMusicPlayer}
+                                            changeCurrentSong={this.props.changeCurrentSong}
+                                            playSongs={this.props.playSongs}
+                                            currentSong={this.props.currentSong}
+                                            />
                                     </div>
                                 </Scroll> 
                             </div>       

@@ -73,7 +73,7 @@ class DiscList extends Component {
     //热门歌单
     let discsList = "";
     let {match} = this.props;
-    console.log('跳转歌单链接：',this.props.history);
+    // console.log('跳转歌单链接：',this.props.history);
     discsList = this.state.discList.map((item, index) => {
       return (
         <li className="row-li" key={index} onClick={this.toMusicList(`${match.url + '/' + item.dissid}`)}>

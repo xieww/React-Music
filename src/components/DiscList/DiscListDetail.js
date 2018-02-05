@@ -130,7 +130,7 @@ class DiscListDetail extends Component {
             <CSSTransition in={this.state.show} timeout={300} classNames="translate">
             <div className="singer-detail">
                 <div>
-                    <NavHeadBar title = {this.state.headerLitle} className="singer-title" ref="header"/>
+                    <NavHeadBar title = {this.state.headerLitle} className="singer-title" />
                     <div style={{position:"relative"}} className="singer-bg">
                         <div ref="albumBg" className="singer-img" style={{backgroundImage: `url(${this.state.avatar})`}}>
                             <div className="filter"></div>
