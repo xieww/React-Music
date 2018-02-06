@@ -15,14 +15,14 @@ class SearchPage extends Component {
       isData: false,
       loadings: true,
       hotkeylist: [],
+      keyword: '',
     };
   };
 
-  
-  handleChange(text, e) {
-
-  }
-
+  /**
+   * @author xieww
+   * @description 获取热门搜索词
+   */
   getHotkeyData() {
     getHotKey().then(res => {
       if (res) {
@@ -35,22 +35,56 @@ class SearchPage extends Component {
     })
   };
 
+  /**
+   * @author xieww
+   * @description 点击关键词搜索
+   * @param {*} text 
+   */
+  tagSearch = (text) => {
+    console.log('text',text);
+    return () => {
+      this.getSearchData(text);
+    }
+  };
+
+  /**
+   * @author xieww
+   * @description 搜索
+   * @param {*} text 
+   */
+  getSearchData = (text) => {
+    this.setState({
+      keyword: text,
+    });
+    search(text).then((res) => {
+      console.log('搜索结果',res);
+    })
+  }
+
   componentDidMount() {
     this.getHotkeyData();
-  }
+  };
 
   render() {
     let hotkeyItem = "";
     hotkeyItem = this.state.hotkeylist.map((item,index) =>{
       return (
-        <Tag className="tags" key={index}>{item.k}</Tag>
+        <div key={index} onClick={this.tagSearch(item.k)}>
+          <Tag className="tags">{item.k}</Tag>
+        </div>
       )
-    })
+    });
+
     return (
       <div className="search_main">
         <Scroll refresh={this.state.refreshScroll} className="scroll-box">
           <div className="search-box">
-            <SearchBar placeholder="搜索歌曲、歌单、专辑" ref={ref => this.autoFocusInst = ref} className="search-bar"/>
+            <SearchBar 
+              placeholder="搜索歌曲、歌单、专辑" 
+              ref={ref => this.autoFocusInst = ref} 
+              className="search-bar"
+              value= {this.state.keyword}
+            />
           </div>
           <div className="search-center">
               <div className="hot_search">

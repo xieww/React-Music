@@ -25,13 +25,13 @@ class DiscList extends Component {
 
   /**
    * @author xieww
-   * @description
+   * @description 获取歌单列表
    */
   getDiscData() {
     getDiscList().then(res => {
       if (res) {
         if (res.code === CODE_SUCCESS) {
-          console.log(res.data.list);
+        
           this.setState(
             {
               discList: res.data.list,
