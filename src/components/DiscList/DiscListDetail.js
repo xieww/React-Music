@@ -43,7 +43,7 @@ class DiscListDetail extends Component {
                         songs.push(song);
                       }
                     });
-                    console.log('songs',songs);
+                    // console.log('songs',songs);
                     this.setState({
                         songLists: songs,
                         headerLitle: res.cdlist[0].dissname,
