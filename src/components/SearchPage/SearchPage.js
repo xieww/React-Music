@@ -247,9 +247,10 @@ class SearchPage extends Component {
    * @param {*} value 
    */
   onChange = (value) => {
-        this.setState({
-          keyword: value,
-        });
+      this.setState({
+        keyword: value,
+      });
+      this.getSearchData(value);
   };
 
   clear = () => {
