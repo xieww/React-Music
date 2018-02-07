@@ -3,7 +3,7 @@ import { Route,withRouter } from "react-router-dom";
 import Singer from "../../../reduxs/containers/singer";
 import Album from "../../../reduxs/containers/Album";
 import "./SearchResultList.less";
-
+import { Toast } from 'antd-mobile';
 
 class SearchResultList extends Component {
     constructor(props) {
@@ -30,36 +30,55 @@ class SearchResultList extends Component {
             if (type === "singer") {
                 //跳转到歌手详情
                 this.props.history.push({
-                    pathname: `${this.props.match.url}/singer/${value}`
+                    pathname: `/singer/${value}`
                 });
             }else if (type === "album") {
                 //跳转到专辑详情
                 this.props.history.push({
-                    pathname: `${this.props.match.url}/album/${value}`
+                    pathname: `/recommend/albumlist/${value}`
                 });
             }else {
+                if (this.props.currentSong.id !== undefined) {
+                    if (this.props.currentSong.id === value.id) {
+                        return;
+                    } else {
+                        let tempPlaySongs = this.props.playSongs;
+                        let tempSongList = tempPlaySongs.concat(value);
+                        this.props.setSongs(tempSongList);
+                        this.props.changeCurrentSong(value);
+                        this.props.showMusicPlayer(true);
+                        Toast.success('歌曲已添加到播放队列',1);
+                    }
+                } else {
+                        this.props.setSongs([value]);
+                        this.props.changeCurrentSong(value);
+                        this.props.showMusicPlayer(true);
+                }
+
                 // this.props.setSongs([value]);
                 // this.props.changeCurrentSong(value);
+                // this.props.showMusicPlayer(true);
             }
         }
     }
     render() {
 
         console.log('this.props',this.props);
-        // let {match} = this.props;
-        // let singer = this.props.singer;
-        // let album = this.props.album;
+        let {match} = this.props;
+        console.log('match.url',match.url );
+        let singer = this.props.singer;
+        let album = this.props.album;
 
-        // let resultList = "";
-        // resultList = this.props.list.map((item,index) => {
-        //     return (
-        //     <li key={index} onClick={this.jumpPage(item,"song")}>
-        //         <i className="icon"/>
-        //         <h6 className="name">{item.name}</h6>
-        //         <p className="info">{item.singer}</p>
-        //     </li> 
-        //     );
-        // });
+        let resultList = "";
+        resultList = this.props.list.map((item,index) => {
+            return (
+            <li key={index} onClick={this.jumpPage(item,"song")}>
+                <i className="icon"/>
+                <h6 className="name">{item.name}</h6>
+                <p className="info">{item.singer}</p>
+            </li> 
+            );
+        });
         return (
             <div className="search-result">
                 {/* 歌曲列表 */}
@@ -85,8 +104,8 @@ class SearchResultList extends Component {
                         </li>
                         {resultList}
                     </ul>
-                    <Route path={`${match.url  + '/singer/:id'}`} component={Singer} />
-                    <Route path={`${match.url  + '/album/:id'}`} component={Album} />
+                    <Route path={`${'/singer/:id'}`} component={Singer} />
+                    <Route path={`${'/recommend/albumlist/:id'}`} component={Album} />
             </div>
         );
     }

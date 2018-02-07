@@ -1,6 +1,6 @@
 import {connect} from "react-redux"
 import {showPlayer, changeSong, setSongs} from "../actions/actions"
-import Search from "../../components/common/SearchResultList/SearchResultList";
+import Search from "../../components/SearchPage/SearchPage";
 
 //映射Redux全局的state到组件的props上
 const mapStateToProps = (state) => ({

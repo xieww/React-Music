@@ -20,7 +20,7 @@ export function getHotKey() {
 export function search(query, page, zhida, perpage) {
 	console.log('page' + page);
 	const data = Object.assign({}, commonParams, {
-        g_tk: 5381,
+        g_tk: 1928093487,
         w: query,
         p: page,
         perpage,
@@ -34,10 +34,12 @@ export function search(query, page, zhida, perpage) {
         aggr: 0,
         remoteplace: 'txt.mqq.all',
         uin: 0,
+        platform: "h5",
         needNewCode: 1,
+        notice:0,
         _: new Date().getTime()
-	});
-
+        });
+        
 	return jsonp(URL.search, data, OPTION);
 }
 

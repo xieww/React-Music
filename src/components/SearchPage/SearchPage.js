@@ -100,6 +100,7 @@ class SearchPage extends Component {
           let tempTypes = res.data.zhida;
           let singer = {};
           let album = {};
+          let temp = [];
           let songList = this.normalizeSongs(res.data.song.list);
           if (tempTypes && tempTypes.type === 2) {
             singer = SingerModel.createSingerBySearch(tempTypes);
@@ -110,7 +111,10 @@ class SearchPage extends Component {
             album = AlbumModel.createAlbumBySearch(tempTypes);
             album.type = TYPE_SINGER[2];
           }else {
-            return;
+            temp.push({
+              ...tempTypes, 
+              ...{type: TYPE_SINGER[0]},
+            })
           }
           this.setState({
                 searchResult: songList,
@@ -262,7 +266,7 @@ class SearchPage extends Component {
   };
 
   render() {
-    console.log('------------' + this.state.page,this.props);
+    // console.log('------------' + this.state.page,this.props);
     let hotkeyItem = "";
     hotkeyItem = this.state.hotkeylist.map((item,index) =>{
       return (
@@ -311,6 +315,11 @@ class SearchPage extends Component {
                     list={this.state.searchResult}
                     singer={this.state.singer}
                     album={this.state.album}
+                    setSongs={this.props.setSongs}
+                    showMusicPlayer={this.props.showMusicPlayer}
+                    changeCurrentSong={this.props.changeCurrentSong}
+                    playSongs={this.props.playSongs}
+                    currentSong={this.props.currentSong}
                     />
                 </PullToRefresh>
               </div>
