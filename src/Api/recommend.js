@@ -49,8 +49,6 @@ export function getDiscList() {
  * @param {*} disstid 
  */
   export function getSongList(disstid) {
-    console.log('dissid:' + disstid);
-
     const url = '/api/getDiscDetail'
     const data = Object.assign({}, commonParams, {
       disstid,

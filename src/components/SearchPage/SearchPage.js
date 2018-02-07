@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import { SearchBar, Tag, PullToRefresh ,NoticeBar ,Icon} from 'antd-mobile';
+import { SearchBar, Tag, PullToRefresh ,NoticeBar ,Icon , Result} from 'antd-mobile';
 import "./SearchPage.less";
 import Scroll from "../../utils/scroll";
 import { getHotKey, search } from "../../Api/search";
@@ -10,6 +10,7 @@ import * as SongModel from "../../model/song";
 import * as SingerModel from "../../model/singer";
 import * as AlbumModel from "../../model/album";
 
+import { getLyric } from "../../Api/song";
 import SearchResultList from "../common/SearchResultList/SearchResultList";
 // const TYPE_SINGER = 'singer';
 const perpage = 20;
@@ -34,6 +35,7 @@ class SearchPage extends Component {
       refreshing: false,
       down:true,
       isShow: false,
+      noResult: true,
     };
   };
 
@@ -102,6 +104,17 @@ class SearchPage extends Component {
           let album = {};
           let temp = [];
           let songList = this.normalizeSongs(res.data.song.list);
+          if (songList.length === 0) {
+            this.setState({
+              noResult: false,
+            });
+          }else {
+            this.setState({
+              noResult: true,
+            });
+          };
+
+          console.log('处理结果',songList);
           if (tempTypes && tempTypes.type === 2) {
             singer = SingerModel.createSingerBySearch(tempTypes);
             singer.songnum = tempTypes.songnum;
@@ -223,7 +236,8 @@ class SearchPage extends Component {
     })
   }
 
-  /**@author xieww
+  /**
+   * @author xieww
    * @description 获取歌曲地址
    * @param {*} song 
    * @param {*} mId 
@@ -254,9 +268,17 @@ class SearchPage extends Component {
   };
 
   clear = () => {
-    this.setState({ keyword: '' });
+    this.setState({ 
+      keyword: '' ,
+      noResult: true
+    });
   };
 
+  getLyricData(id) {
+    getLyric(id).then((res) => {
+      console.log('-----歌词-------',res);
+    })
+  }
   componentDidMount() {
     this.getHotkeyData();
     // const hei = this.state.height - ReactDOM.findDOMNode(this.ptr).offsetTop;
@@ -264,6 +286,7 @@ class SearchPage extends Component {
     // this.setState({
     //   height: hei,
     // });
+    this.getLyricData('001PEDwK3D53Qj');
   };
 
   render() {
@@ -326,6 +349,13 @@ class SearchPage extends Component {
               </div>
             </Scroll>
           </div>
+          {/* <div className="no-result" style={{display: this.state.noResult === true && this.state.searchResult.length === 0 ? "none" : "block"}}>
+            <Result
+              img={<Icon type="check-circle" className="spe" style={{ fill: '#1F90E6' }} />}
+              title="暂无数据"
+              message={<div>没有搜索到相关内容/div>}
+            />
+          </div> */}
       </div>
     );
   }

@@ -100,6 +100,20 @@ apiRoutes.get('/lyric', function (req, res) {
   })
 })
 
+apiRoutes.get('/lyricData', function (req, res) {
+  var url = 'https://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric.fcg'
+  axios.get(url, {
+    headers: {
+      referer: 'https://y.qq.com/n/yqq/song/002NVxll0Cqvjk.html',
+    },
+    params: req.query
+  }).then((response) => {
+    res.json(response.data)
+  }).catch((e) => {
+    console.log(e)
+  })
+})
+
 // app.use('/api', apiRoutes)
 
 module.exports = function(proxy, allowedHost) {
