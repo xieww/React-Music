@@ -39,7 +39,12 @@ class SearchResultList extends Component {
                 });
             }else {
                 if (this.props.currentSong.id !== undefined) {
-                    if (this.props.currentSong.id === value.id) {
+                    console.log('===========',this.props.playSongs);
+                    let arrID = this.processData();
+                    // console.log('arrID',arrID);
+                    //判断当前播放列表是否有将要添加的歌曲，如果歌曲已经存在测不添加
+                    if (arrID.includes(value.id)) {
+                        Toast.offline('抱歉，添加失败，歌曲已经存在', 1);
                         return;
                     } else {
                         let tempPlaySongs = this.props.playSongs;
@@ -54,13 +59,24 @@ class SearchResultList extends Component {
                         this.props.changeCurrentSong(value);
                         this.props.showMusicPlayer(true);
                 }
-
-                // this.props.setSongs([value]);
-                // this.props.changeCurrentSong(value);
-                // this.props.showMusicPlayer(true);
             }
         }
-    }
+    };
+
+    /**
+     * @author xieww
+     * @description 处理播放列表
+     */
+    processData = () => {
+        let playSong = this.props.playSongs;
+        let len = playSong.length;
+        let tempArr = [];
+        for (let i = 0; i < len; i++) {
+            tempArr.push(playSong[i].id);
+        }
+        return tempArr;
+    };
+    
     render() {
 
         console.log('this.props',this.props);

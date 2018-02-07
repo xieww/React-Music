@@ -16,6 +16,7 @@ class SongItem extends Component {
       super(props);
       this.state = {
         clicked2: 'none',
+        isFirstPlay: true,
       };
     };
 
@@ -64,8 +65,10 @@ class SongItem extends Component {
         // console.log('=======this.props=======',this.props);
         return () => {
             if (this.props.currentSong.id !== undefined) {
-                if (this.props.currentSong.id === song.id) {
-                    // Toast.fail('歌曲已经存在!!!', 1);
+                let arrID = this.processData();
+                //判断当前播放列表是否有将要添加的歌曲，如果歌曲已经存在测不添加
+                if (arrID.includes(song.id)) {
+                    Toast.offline('抱歉，添加失败，歌曲已经存在', 1);
                     return;
                 } else {
                     let tempPlaySongs = this.props.playSongs;
@@ -81,7 +84,21 @@ class SongItem extends Component {
                     this.props.showMusicPlayer(true);
             }
         }
-    }
+    };
+
+    /**
+     * @author xieww
+     * @description 处理播放列表
+     */
+    processData = () => {
+        let playSong = this.props.playSongs;
+        let len = playSong.length;
+        let tempArr = [];
+        for (let i = 0; i < len; i++) {
+            tempArr.push(playSong[i].id);
+        }
+        return tempArr;
+    };
 
     render() {
         // console.log('this.props2222',this.props);
