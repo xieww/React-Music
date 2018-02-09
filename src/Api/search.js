@@ -18,7 +18,6 @@ export function getHotKey() {
 }
 
 export function search(query, page, zhida, perpage) {
-	console.log('page' + page);
 	const data = Object.assign({}, commonParams, {
         g_tk: 1928093487,
         w: query,

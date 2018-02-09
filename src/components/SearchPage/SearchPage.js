@@ -79,11 +79,10 @@ class SearchPage extends Component {
 			album: [],
     });
     search(text,this.state.page,true,perpage).then((res) => {
-      console.log('搜索结果',res);
+      // console.log('搜索结果',res);
       if (res) {
         if (res.code === CODE_SUCCESS) {
           // let result = this.processResult(res.data);
-          // console.log('处理结果',result);
           // let singer = [];
           // let album = [];
           // let songList = [];
@@ -98,7 +97,7 @@ class SearchPage extends Component {
           //     songList = result;
           //   }
           // };
-
+          this.getLyricData('001PEDwK3D53Qj');
           let tempTypes = res.data.zhida;
           let singer = {};
           let album = {};
@@ -114,7 +113,7 @@ class SearchPage extends Component {
             });
           };
 
-          console.log('处理结果',songList);
+          // console.log('处理结果',songList);
           if (tempTypes && tempTypes.type === 2) {
             singer = SingerModel.createSingerBySearch(tempTypes);
             singer.songnum = tempTypes.songnum;
@@ -214,7 +213,6 @@ class SearchPage extends Component {
     });
     
     search(this.state.keyword,pages,true,perpage).then((res) =>{
-      console.log('搜索',res);
       if (res) {
         if (res.code === CODE_SUCCESS) {
           let moreSongList = this.normalizeSongs(res.data.song.list);
@@ -276,7 +274,7 @@ class SearchPage extends Component {
 
   getLyricData(id) {
     getLyric(id).then((res) => {
-      console.log('-----歌词-------',res);
+      // console.log('-----歌词-------',res);
     })
   }
   componentDidMount() {
@@ -290,7 +288,6 @@ class SearchPage extends Component {
   };
 
   render() {
-    // console.log('------------' + this.state.page,this.props);
     let hotkeyItem = "";
     hotkeyItem = this.state.hotkeylist.map((item,index) =>{
       return (
@@ -315,13 +312,18 @@ class SearchPage extends Component {
               onSubmit={this.getSearchData}
             />
           </div>
-          <div className="search-center" style={{display: this.state.keyword ? "none" : "block"}}>
-              <div className="hot_search">
-                  <h3 className="hot_title">热门搜索</h3>
-                  <div className="result_list">
-                      {hotkeyItem}
-                  </div>
-              </div>
+          <div>
+            <div className="search-center" style={{display: this.state.keyword ? "none" : "block"}}>
+                <div className="hot_search">
+                    <h3 className="hot_title">热门搜索</h3>
+                    <div className="result_list">
+                        {hotkeyItem}
+                    </div>
+                </div>
+            </div>
+            <div className="search-history">
+              
+            </div>
           </div>
           <div className="results" style={{display: this.state.keyword ? "block" : "none"}}>
             <Scroll ref="scroll">

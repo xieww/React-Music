@@ -1,17 +1,20 @@
 .headerBar {
-    position: fixed;
+    position: relative;
     width: 100%;
-    height: 44px;
+    height: 40px;
     // background: #31c27c;
-    display: block;
+    // display: block;
     
+    text-align: center;
+
 
     .music_logo {
-        float: left;
+        // float: left;
         display: block;
         width: 90px;
         height: 25px;
-        margin: 9px 0 0 10px;
+        // margin: 9px 0 0 10px;
+        margin: 7px auto;
         background-image: url(https://y.gtimg.cn/mediastyle/mobile/yqq_v5/img/logo.png?max_age=19830212&d=20151105145423);
         background-size: cover;
         background-repeat: no-repeat;
@@ -28,6 +31,24 @@
         border-radius: 99px;
         font-size: 14px;
         background: #149c5a;
+        color: #fff;
+    }
+
+    .icon-logo {
+        display: inline-block;
+        vertical-align: top;
+        margin-top: 6px;
+        width: 30px;
+        height: 32px;
+        margin-right: 9px;
+        background-image: url("../../images/musicLogo.png");
+        background-size: 30px 32px;
+    }
+    .text {
+        display: inline-block;
+        vertical-align: top;
+        line-height: 44px;
+        font-size: 18px;
         color: #fff;
     }
 }

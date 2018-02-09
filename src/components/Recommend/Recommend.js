@@ -175,7 +175,7 @@ class Recommend extends Component {
               })}
               </Carousel>
           </div>
-          <div className="hotlist" id="songs" style={this.state.isData === true ? {} : {display:"none"}}>
+          <div className="hotlist" id="songs" style={this.state.discListMore.length > 0 ? {} : {display:"none"}}>
             <h1 className="list-title">
               热门歌单推荐
             </h1>

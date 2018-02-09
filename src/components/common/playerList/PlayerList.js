@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ReactDOM from "react-dom";
 import { CSSTransition } from "react-transition-group"
 import { Modal, List, Button, WhiteSpace, WingBlank, Toast} from 'antd-mobile';
 import { Icon } from 'antd';
@@ -52,8 +53,10 @@ class PlayerList extends Component {
      * @param {*} id 
      * @param {*} index 
      */
-    removeSongs(id,index) {
-        return () => {
+    removeSong(id,index) {
+        return (e) => {
+            e.stopPropagation();
+            e.nativeEvent.stopImmediatePropagation();
             if (this.props.currentSong.id !== id) {
                 this.props.removeSong(id);
                 if (index < this.props.currentIndex) {
@@ -68,17 +71,8 @@ class PlayerList extends Component {
      * @author xieww
      * @description 清空播放列表
      */
-    // removeAllSongs = (id) => {
-    //     return () => {
-    //         if (this.props.playSongs !==0) {
-    //             this.props.removeALLSong(id);
-    //             this.props.fullplayStatus(false);
-    //             this.props.showList(false);
-    //         }
-    //     }
-    // };
     removeAllSongs = () => alert('清空', '确定清空播放列表吗???', [
-        { text: '取消', onPress: () => console.log('cancel') },
+        { text: '取消', onPress: () => console.log() },
         { text: '确定', onPress: () => {
             if (this.props.playSongs !==0) {
                 this.props.removeALLSong('0');
@@ -104,14 +98,14 @@ class PlayerList extends Component {
         }
     };
 
-    componentWillReceiveProps(nextProps) {
-    };
-    shouldComponentUpdate(nextProps, nextState) {
-        return true;
-    };
-    componentWillUpdate(nextProps, nextState) {
+    // componentWillReceiveProps(nextProps) {
+    // };
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     return true;
+    // };
+    // componentWillUpdate(nextProps, nextState) {
 
-    };
+    // };
 	componentDidUpdate(prevProps, prevState) {
         if (this.changeIndex.shouldChange === true) {
             this.props.changeCurrentIndex(this.changeIndex.index);
@@ -138,6 +132,16 @@ class PlayerList extends Component {
 		}
     };
 
+    /**
+     * @author xieww
+     * @description 滚动到当前播放歌曲
+	 */
+	scrollToCurrentItem() {
+		this.refs.scroll.bScroll.scrollToElement(
+			ReactDOM.findDOMNode(this.refs[`item${this.props.currentIndex}`])
+		);
+	}
+
     render() {
         // console.log('22222222222222222',this.props);
         let playModesText = this.state.currentPlayMode === playModeNum.sequence ? "顺序播放" : this.state.currentPlayMode === playModeNum.loop ? "单曲循环" : "随机播放";
@@ -157,11 +161,11 @@ class PlayerList extends Component {
                 };
             }
             return (
-                <List.Item key={index} className={isCurrent ? "am-list-item activeIndex" : "am-list-item"} onClick={this.playMusic(item,index)}>
+                <List.Item key={index} className={isCurrent ? "am-list-item activeIndex" : "am-list-item"} onClick={this.playMusic(item,index)} ref={`item${index}`}>
                     <span className="song-name">{item.name}</span>-
                     <span className="song-singer">{item.singer}</span>
                     <span className="list-close">
-                        <Icon type="close" className="close" onClick={this.removeSongs(item.id ,index)}/>
+                        <Icon type="close" className="close" onClick={this.removeSong(item.id ,index)}/>
                     </span>
                 </List.Item>
             );
@@ -177,13 +181,14 @@ class PlayerList extends Component {
                             });
 					}}
 					onEntered={() => {
-                        {/* this.refs.scroll.refresh(); */}
+                        this.refs.scroll.refresh();
+                        this.scrollToCurrentItem();
 					}}
 					onExited={() => {
 						this.setState({
                             showList:false,
-                            });
-
+                        });
+                        this.scrollToCurrentItem();
 					}}>
                     <div className="player-list-body" >
                         <Modal

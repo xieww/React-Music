@@ -39,9 +39,7 @@ class SearchResultList extends Component {
                 });
             }else {
                 if (this.props.currentSong.id !== undefined) {
-                    console.log('===========',this.props.playSongs);
                     let arrID = this.processData();
-                    // console.log('arrID',arrID);
                     //判断当前播放列表是否有将要添加的歌曲，如果歌曲已经存在测不添加
                     if (arrID.includes(value.id)) {
                         Toast.offline('抱歉，添加失败，歌曲已经存在', 1);
@@ -79,9 +77,8 @@ class SearchResultList extends Component {
     
     render() {
 
-        console.log('this.props',this.props);
+        // console.log('this.props',this.props);
         let {match} = this.props;
-        console.log('match.url',match.url );
         let singer = this.props.singer;
         let album = this.props.album;
 

@@ -28,8 +28,7 @@ import axios from 'axios'
 // };
 
 export function getLyric(mid) {
-	console.log('mid',mid);
-  const url = 'http://ustbhuangyi.com/music/api/lyric'
+  const url = 'http://ustbhuangyi.com/music/api/lyric';
   const data = Object.assign({}, commonParams, {
 		g_tk:1928093487,
 		format:'json',
