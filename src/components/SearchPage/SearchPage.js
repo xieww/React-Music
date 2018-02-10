@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import { SearchBar, Tag, PullToRefresh ,NoticeBar ,Icon , Result} from 'antd-mobile';
+import { SearchBar, Tag, PullToRefresh ,NoticeBar , Result, Toast, Modal} from 'antd-mobile';
+import { Icon} from 'antd';
 import "./SearchPage.less";
 import Scroll from "../../utils/scroll";
 import { getHotKey, search } from "../../Api/search";
@@ -9,15 +10,17 @@ import { getSongVKey } from "../../Api/song";
 import * as SongModel from "../../model/song";
 import * as SingerModel from "../../model/singer";
 import * as AlbumModel from "../../model/album";
-
 import { getLyric } from "../../Api/song";
 import SearchResultList from "../common/SearchResultList/SearchResultList";
+import SearchHistory from "../common/SearchHistory/SearchHistory";
+
 // const TYPE_SINGER = 'singer';
 const perpage = 20;
 // 0表示歌曲 2表示歌手 3表示专辑
 let TYPE_SINGER = ['song','singer','album'];
-class SearchPage extends Component {
+const alert = Modal.alert;
 
+class SearchPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -78,6 +81,7 @@ class SearchPage extends Component {
       singer: [],
 			album: [],
     });
+    
     search(text,this.state.page,true,perpage).then((res) => {
       // console.log('搜索结果',res);
       if (res) {
@@ -181,7 +185,12 @@ class SearchPage extends Component {
       if (item.songid && item.albummid) {
         let song = SongModel.createSong(item);
         //获取歌曲vkey
-        this.getSongUrl(song, item.songmid);
+        if (item.songmid === "001qjdRZ4ZswWO") {
+          let mid = "101qjdRZ4ZswWO"
+          this.getSongUrl(song, mid);
+        } else {
+            this.getSongUrl(song, item.songmid);
+        };   
         songs.push(song);
       }
     });
@@ -272,6 +281,21 @@ class SearchPage extends Component {
     });
   };
 
+  /**
+   * @author xieww
+   * @description 清空搜索历史
+   */
+  clearSearchHistory = () => alert('清空', '确定清空搜索历史吗？', [
+    { text: '取消', onPress: () => console.log() },
+    { text: '确定', onPress: () => {
+        if (this.props.searchHistory !==0) {
+            this.props.clearSearch("1");
+        };
+        Toast.success('操作成功 !!!', 1);
+    }},
+]);
+
+
   getLyricData(id) {
     getLyric(id).then((res) => {
       // console.log('-----歌词-------',res);
@@ -288,6 +312,7 @@ class SearchPage extends Component {
   };
 
   render() {
+    console.log("--------------",this.props);
     let hotkeyItem = "";
     hotkeyItem = this.state.hotkeylist.map((item,index) =>{
       return (
@@ -309,21 +334,36 @@ class SearchPage extends Component {
               value= {this.state.keyword}
               onChange={this.onChange}
               onClear={this.clear}
-              onSubmit={this.getSearchData}
+              onSubmit={() => {
+                this.getSearchData;
+                console.log('关键词',this.state.keyword);
+                this.props.saveSearch(this.state.keyword);
+                }}
             />
           </div>
-          <div>
-            <div className="search-center" style={{display: this.state.keyword ? "none" : "block"}}>
-                <div className="hot_search">
-                    <h3 className="hot_title">热门搜索</h3>
-                    <div className="result_list">
-                        {hotkeyItem}
+          <div className="search-m">
+            <Scroll ref="scroll">
+              <div>
+                <div className="search-center" style={{display: this.state.keyword ? "none" : "block"}}>
+                    <div className="hot_search">
+                        <h3 className="hot_title">热门搜索</h3>
+                        <div className="result_list">
+                            {hotkeyItem}
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div className="search-history">
-              
-            </div>
+                <div className="search-history" style={{display: this.state.keyword ? "none" : "block"}}>
+                    <h1 className="title">
+                      <span className="text">搜索历史</span>
+                      <Icon type="delete" className="delete-icon" onClick={this.clearSearchHistory}/>
+                    </h1>
+                    <SearchHistory
+                      list={this.props.searchHistory}
+                      deleteSearch={this.props.deleteSearch}
+                    />
+                </div>
+              </div>
+            </Scroll>
           </div>
           <div className="results" style={{display: this.state.keyword ? "block" : "none"}}>
             <Scroll ref="scroll">

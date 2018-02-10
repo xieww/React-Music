@@ -15,34 +15,60 @@
             }
         }
     }
-    .search-center {
-        position: relative;
-        // top: 178px;
-        // bottom: 0;
+    .search-m {
+        position: fixed;
+        top: 145px;
+        bottom: 0;
         width: 100%;
-        .hot_search {
-            padding: 0px 15px 0px 15px;
-            .hot_title {
-                color: rgba(0,0,0,.6);
-                margin-bottom: 8px;
-                display: block;
-                font-size: 15px;
-                font-weight: bold;
+        .search-center {
+            position: relative;
+            // top: 178px;
+            // bottom: 0;
+            width: 100%;
+            .hot_search {
+                padding: 0px 15px 0px 15px;
+                .hot_title {
+                    color: rgba(0,0,0,.6);
+                    margin-bottom: 8px;
+                    display: block;
+                    font-size: 15px;
+                    font-weight: bold;
+                }
+                .result_list {
+                    font-size: 0;
+                    display: flex;
+                    padding-top: 9px;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+        
+                    .tags {
+                        background-color: #384850;
+                        color: hsla(0,0%,100%,.3);
+                        // padding-left: 15px;
+                        // padding-right: 15px;
+                        margin-left: 9px;
+                        margin-bottom: 9px;
+                    }
+                }
             }
-            .result_list {
-                font-size: 0;
+        }
+        .search-history {
+            position: relative;
+            margin: 0 20px;
+            .title {
                 display: flex;
-                padding-top: 9px;
-                flex-direction: row;
-                flex-wrap: wrap;
-    
-                .tags {
-                    background-color: #384850;
-                    color: hsla(0,0%,100%,.3);
-                    // padding-left: 15px;
-                    // padding-right: 15px;
-                    margin-left: 9px;
-                    margin-bottom: 9px;
+                align-items: center;
+                height: 40px;
+                font-size: 14px;
+                color: hsla(0,0%,100%,.5);
+                margin-bottom: -5px;
+                .text {
+                    flex: 1;
+                }
+                .delete-icon {
+                    position: relative;
+                    color: #fff;
+                    font-size: 16px;
                 }
             }
         }

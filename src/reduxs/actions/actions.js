@@ -24,3 +24,27 @@ export function removeALLSong(id) {
 export function setSongs(songs) {
   return { type: ActionTypes.SET_SONGS, songs };
 }
+
+export function saveSearch(history) {
+  return { type: ActionTypes.SET_SEARCH_HISTORY, history };
+}
+
+export function deleteSearch(history) {
+  return { type: ActionTypes.DELETE_SEARCH_HISTORY , history };
+}
+
+export function clearSearch(history) {
+  return { type: ActionTypes.CLEAR_SEARCH_HISTORY, history };
+}
+
+export function savePlayHistory(history) {
+  return { type: ActionTypes.SET_PLAY_HISTORY, history };
+}
+
+export function saveFavorite(list) {
+  return { type: ActionTypes.SET_FAVORITE_LIST, list };
+}
+
+export function deleteFavorite(list) {
+  return { type: ActionTypes.DELETE_FAVORITE_LIST, list };
+}

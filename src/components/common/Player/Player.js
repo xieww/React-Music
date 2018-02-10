@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { CSSTransition } from "react-transition-group"
 import ReactDOM from "react-dom";
-import { NavBar,  Carousel } from 'antd-mobile';
+import { NavBar,  Carousel, Toast } from 'antd-mobile';
 import { Icon } from 'antd';
 import Scroll from "../../../utils/scroll";
 import  ProgressBar from "../ProgressBar/ProgressBar";
@@ -420,7 +420,10 @@ class Player extends Component {
             }
         }, false);
 
-        this.audioDOM.addEventListener("error", () => {alert("加载歌曲出错！")}, false);
+        this.audioDOM.addEventListener("error", () => {
+            // alert("加载歌曲出错！")
+            Toast.offline('抱歉，加载歌曲出错！', 1);
+        }, false);
     }
 
     render() {
@@ -448,7 +451,7 @@ class Player extends Component {
 
         // console.log('this.props.currentSong',this.props.currentSong);
         // console.log('this.props.playSongs',this.props.playSongs);
-        // console.log('==========this.props============',this.props);
+        console.log('==========this.props============',this.props);
         //播放按钮样式
         let playButtonClass = this.state.playStatus === true ? "pause-circle-o" : "play-circle-o";
         let isFavoriteIcon = this.state.favorite === true ? "heart" : "heart-o";

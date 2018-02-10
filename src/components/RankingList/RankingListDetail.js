@@ -49,7 +49,12 @@ class RankingListDetail extends Component {
                         // songs.push(SongModel.createSong(musicData));
                         let song = SongModel.createSong(musicData);
                         //获取歌曲vkey
-                        this.getSongUrl(song, musicData.songmid);
+                        if (musicData.songmid === "001qjdRZ4ZswWO") {
+                            let mid = "101qjdRZ4ZswWO";
+                            this.getSongUrl(song, mid);
+                        } else {
+                            this.getSongUrl(song, musicData.songmid);
+                        }                        
                         songs.push(song);
                       }
                     });
