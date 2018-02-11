@@ -16,29 +16,39 @@ class SearchHistory extends Component {
        * @param {*} value 
        */
     deleteSearchHistory = (value) => {
-        return () =>{
+        return (e) =>{
+            e.stopPropagation();
+            e.nativeEvent.stopImmediatePropagation();
             this.props.deleteSearch(value);
         };
     };
 
-    render() {
-        // console.log("搜索历史",this.props);
+    /**
+     * @author xieww
+     * @description 选择关键字搜索
+     * @param {*} k 
+     */
+    setSearchKeyword = (k,e) => {
+        e.stopPropagation();
+        e.nativeEvent.stopImmediatePropagation();
+        this.props.selectItem(k);
+    }
 
+    render() {
+        console.log('list',this.props);
         let historyItem = "";
         historyItem = this.props.list.map((item,index) => {
             return (
-                <li className="list-li" key={index}>
+                <li className="list-li" key={index} onClick={e => this.setSearchKeyword(item,e)}>
                     <span className="text">{item}</span>
                     <Icon type="close" className="close-icon"  onClick={this.deleteSearchHistory(item)}/>
                 </li>
             )
         });
         return (
-            <div className="history-list">
                 <ul className="list-ul">
                     {historyItem}
                 </ul>
-            </div>
         );
     }
 }

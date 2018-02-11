@@ -8,7 +8,8 @@ import {loadSearch, loadPlay, loadFavorite} from '../../utils/localCache';
 const mapStateToProps = (state) => ({
 	currentSong: state.song,
 	playSongs: state.songs,
-	searchHistory: loadSearch(), //搜索历史
+	// searchHistory: loadSearch(), //搜索历史
+	searchHistory: state.searchHistory, //搜索历史
 });
 
 //映射dispatch到props上

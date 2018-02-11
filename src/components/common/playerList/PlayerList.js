@@ -7,6 +7,7 @@ import { playModeNum } from "../../../Api/config";
 import Scroll from "../../../utils/scroll";
 import "../Player/commons.less";
 import "./PlayerList.less";
+import HistoryRecord from "../HistoryRecord/HistoryRecord";
 
 const alert = Modal.alert;
 
@@ -143,7 +144,7 @@ class PlayerList extends Component {
 	}
 
     render() {
-        // console.log('22222222222222222',this.props);
+        console.log('22222222222222222',this.props);
         let playModesText = this.state.currentPlayMode === playModeNum.sequence ? "顺序播放" : this.state.currentPlayMode === playModeNum.loop ? "单曲循环" : "随机播放";
         let isShowList = this.state.showList === true ? {display: 'block'} : {display: 'none'};
         let titleText = playModesText + "(" +this.props.playSongs.length + "首)";
@@ -226,12 +227,17 @@ class PlayerList extends Component {
                                         </div>
                                     </Scroll>
                                 </div>
-   
-                                {/* <List.Item>
-                                <Button type="primary" onClick={this.onClose}>买入</Button>
-                                </List.Item> */}
                             </List>
                         </Modal>
+                        <HistoryRecord
+                            playHistory={this.props.playHistory}
+                            searchHistory={this.props.searchHistory}
+                            setSongs={this.props.setSongs}
+                            showMusicPlayer={this.props.showMusicPlayer}
+                            changeCurrentSong={this.props.changeCurrentSong}
+                            playSongs={this.props.playSongs}
+                            currentSong={this.props.currentSong}
+                        />
                     </div>
                 </CSSTransition>
             </div>

@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import {showPlayer, changeSong} from "../actions/actions";
+import {showPlayer, changeSong, saveFavorite, deleteFavorite} from "../actions/actions";
 import Player from "../../components/common/Player/Player";
 import {loadSearch, loadPlay, loadFavorite} from '../../utils/localCache';
 
@@ -8,7 +8,8 @@ const mapStateToProps = (state) => ({
 	showStatus: state.showStatus,
 	currentSong: state.song,
 	playSongs: state.songs,
-	playHistory: loadPlay()
+	playHistory: loadPlay(),
+	favoriteHistory: state.favoriteHistory,
 });
 
 //映射dispatch到props上
@@ -18,6 +19,12 @@ const mapDispatchToProps = (dispatch) => ({
 	},
 	changeCurrentSong: (song) => {
 		dispatch(changeSong(song));
+	},
+	saveFavorite: (list) => {
+		dispatch(saveFavorite(list));
+	},
+	deleteFavorite: (list) => {
+		dispatch(deleteFavorite(list));
 	}
 });
 

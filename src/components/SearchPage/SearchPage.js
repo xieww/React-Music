@@ -295,6 +295,17 @@ class SearchPage extends Component {
     }},
 ]);
 
+  /**
+   * @author xieww
+   * @description 根据搜索历史进行搜索
+   * @param {*} value 
+   */
+  selectSearchHistory = (value) => {
+      this.getSearchData(value);
+      this.setState({
+        keyword: value
+      });
+  };
 
   getLyricData(id) {
     getLyric(id).then((res) => {
@@ -312,7 +323,7 @@ class SearchPage extends Component {
   };
 
   render() {
-    console.log("--------------",this.props);
+    // console.log("--------------",this.props);
     let hotkeyItem = "";
     hotkeyItem = this.state.hotkeylist.map((item,index) =>{
       return (
@@ -336,7 +347,6 @@ class SearchPage extends Component {
               onClear={this.clear}
               onSubmit={() => {
                 this.getSearchData;
-                console.log('关键词',this.state.keyword);
                 this.props.saveSearch(this.state.keyword);
                 }}
             />
@@ -360,6 +370,7 @@ class SearchPage extends Component {
                     <SearchHistory
                       list={this.props.searchHistory}
                       deleteSearch={this.props.deleteSearch}
+                      selectItem={this.selectSearchHistory}
                     />
                 </div>
               </div>

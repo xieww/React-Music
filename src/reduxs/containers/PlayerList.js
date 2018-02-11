@@ -1,11 +1,14 @@
 import {connect} from "react-redux";
-import {changeSong, removeSong, removeALLSong} from "../actions/actions";
+import {changeSong, removeSong, removeALLSong, showPlayer, setSongs} from "../actions/actions";
 import PlayerList from "../../components/common/playerList/PlayerList";
+import {loadSearch, loadPlay} from '../../utils/localCache';
 
 //映射Redux全局的state到组件的props上
 const mapStateToProps = (state) => ({
 	currentSong: state.song,
-	playSongs: state.songs
+	playSongs: state.songs,
+	playHistory: loadPlay(),
+	searchHistory: state.searchHistory
 });
 
 //映射dispatch到props上
@@ -18,6 +21,12 @@ const mapDispatchToProps = (dispatch) => ({
 	},
 	removeALLSong: (id) => {
 		dispatch(removeALLSong(id));
+	},
+	showMusicPlayer: (status) => {
+		dispatch(showPlayer(status));
+	},
+	setSongs: (songs) => {
+		dispatch(setSongs(songs));
 	}
 });
 

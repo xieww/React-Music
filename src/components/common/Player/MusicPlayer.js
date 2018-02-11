@@ -31,8 +31,7 @@ class MusicPlayer extends React.Component {
 	 * @description 是否显示播放列表
 	 * @param {*} status
 	 */
-	showList = (status,mode) => {
-		
+	showList = (status,mode) => {	
 		this.setState({
 			show: status,
 			fullPlayerModes: mode,

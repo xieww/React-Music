@@ -16,11 +16,17 @@ const initialState = {
 	searchHistory: loadSearch(),
 	// searchHistory: [],
 	playHistory: loadPlay(),
+	favoriteHistory: loadFavorite(),
 };
 
 //拆分Reducer
 
-//显示或隐藏播放状态
+/**
+ * @author xieww
+ * @description 显示或隐藏播放状态
+ * @param {*} showStatus 
+ * @param {*} action 
+ */
 function showStatus(showStatus = initialState.showStatus, action) {
 	switch (action.type) {
 		case ActionTypes.SHOW_PLAYER:
@@ -30,7 +36,12 @@ function showStatus(showStatus = initialState.showStatus, action) {
 	}
 }
 
-//修改当前歌曲
+/**
+ * @author xieww
+ * @description 重置当前播放的歌曲
+ * @param {*} song 
+ * @param {*} action 
+ */
 function song(song = initialState.song, action) {
 	switch (action.type) {
 		case ActionTypes.CHANGE_SONG:
@@ -42,7 +53,12 @@ function song(song = initialState.song, action) {
 	}
 }
 
-//添加或移除歌曲
+/**
+ * @author xieww
+ * @description 对歌曲进行删除，添加操作
+ * @param {*} songs 
+ * @param {*} action 
+ */
 function songs(songs = initialState.songs, action) {
 	switch (action.type) {
 		case ActionTypes.SET_SONGS:
@@ -57,23 +73,39 @@ function songs(songs = initialState.songs, action) {
 			return songs;
 	}
 }
-
+/**
+ * @author xieww
+ * @description 对播放历史进行保存、删除、清空
+ * @param {*} searchHistory 
+ * @param {*} action 
+ */
 function searchHistory(searchHistory = initialState.searchHistory, action) {
 	switch (action.type) {
 		case ActionTypes.SET_SEARCH_HISTORY:
 			let newSaveHistory = saveSearch(action.history);
-			// console.log('保存搜索',newSaveHistory);
 			return newSaveHistory;
 		case ActionTypes.DELETE_SEARCH_HISTORY:
 			let newSearch = deleteSearch(action.history);
-			console.log('删除搜索',newSearch);
 			return newSearch;
 		case ActionTypes.CLEAR_SEARCH_HISTORY:
 			let newSearchs = clearSearch();
-			console.log('清空搜索',newSearchs);
 			return newSearchs;
 		default:
 			return searchHistory;
+	}
+};
+
+
+function favoriteHistory(favoriteHistory = initialState.favoriteHistory, action) {
+	switch (action.type) {
+		case ActionTypes.SET_FAVORITE_LIST:
+			let newFavoriteHistory = saveFavorite(action.list);
+			return newFavoriteHistory;
+		case ActionTypes.DELETE_FAVORITE_LIST:
+			let newFavorite = deleteFavorite(action.list);
+			return newFavorite;
+		default:
+			return favoriteHistory;
 	}
 }
 
@@ -83,7 +115,8 @@ const reducer = combineReducers({
 	showStatus,
 	song,
 	songs,
-	searchHistory
+	searchHistory,
+	favoriteHistory
 });
 
 export default reducer

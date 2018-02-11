@@ -33,9 +33,7 @@ class Player extends Component {
         this.state = {
           show: false,
           currentShow: 'cd',
-        //   playModes: 'random-play', //播放模式
           playStatus: false,//播放状态
-          favorite: false, //是否收藏
           fullScreen:false,//是否显示全屏播放页还是迷你播放页
           isNotFullScreen: false,
 
@@ -59,21 +57,6 @@ class Player extends Component {
      * @description 切换播放模式
      */
     changePlayMode = () => {
-        // if (this.state.playModes === 'random-play') {
-        //     this.setState({
-        //         playModes: 'circle-loops'
-        //     });
-        // }else if (this.state.playModes === 'circle-loops') {
-        //     this.setState({
-        //         // playModes: 'single-loop',
-        //         playModes: 'singles-cicle',
-        //     });
-        // }else {
-        //     this.setState({
-        //         playModes: 'random-play',
-        //     });
-        // }
-
         if (this.state.currentPlayMode === this.playModes.length - 1) {
 			this.setState({currentPlayMode:0});
 		} else {
@@ -99,15 +82,7 @@ class Player extends Component {
             this.setState({
                 playStatus: true,
             });
-        } 
-        // else if(this.state.playStatus === true || isMove){
-        //     this.audioDOM.pause();
-		// 	this.stopImgRotate();
-        //     this.setState({
-        //         playStatus: false,
-        //     });
-        // }
-         else {
+        } else {
             this.audioDOM.pause();
 			this.stopImgRotate();
             this.setState({
@@ -175,17 +150,47 @@ class Player extends Component {
 
     /**
      * @author xieww
-     * @description 收藏
+     * @description 判断当前播放歌曲是否在收藏历史中
+     * @param {*} song 
      */
-    isFavorite = () => {
-        if (this.state.favorite === false) {
-            this.setState({
-                favorite: true,
-            });
-        }else {
-            this.setState({
-                favorite: false,
-            });
+    isFavorite = (song) => {
+        const index = this.props.favoriteHistory.findIndex((item) => {
+          return item.id === song.id
+        })
+        return index > -1
+    };
+
+    /**
+     * @author xieww
+     * @description 设置收藏图标
+     * @param {*} song 
+     */
+    getFavoriteIcon = (song) => {
+        if (this.isFavorite(song)) {
+            return "heart";
+        } else {
+            return "heart-o";
+        }
+    };
+
+    /**
+     * @author xieww
+     * @description 设置是否收藏
+     * @param {*} song 
+     */
+    setFavorite = (song) => {
+        if (this.isFavorite(song)) {
+            return (e) => {
+                e.stopPropagation();
+                e.nativeEvent.stopImmediatePropagation();
+                this.props.deleteFavorite(song);
+            }
+        } else {
+            return  (e) => {
+                e.stopPropagation();
+                e.nativeEvent.stopImmediatePropagation();
+                this.props.saveFavorite(song);
+            }
         }
     };
 
@@ -448,6 +453,8 @@ class Player extends Component {
 
         song.playStatus = this.state.playStatus;
         
+        let favoriteHistory = this.props.favoriteHistory;
+        
 
         // console.log('this.props.currentSong',this.props.currentSong);
         // console.log('this.props.playSongs',this.props.playSongs);
@@ -488,7 +495,6 @@ class Player extends Component {
                             <div className="middle-l" ref="middle-l">
                                 <div className="cd-wrapper" ref="cdWrapper">
                                     <div className="cd" ref="singerImg" >
-                                        {/* <img   src="https://y.gtimg.cn/music/photo_new/T002R300x300M0000004stlO2ryr7t.jpg?max_age=2592000"/> */}
                                         <img  className="cd-image" src={playBg} alt={song.name} onLoad={
                                             (e) => {
                                                 /*图片加载完成后设置背景，防止图片加载过慢导致没有背景*/
@@ -543,9 +549,9 @@ class Player extends Component {
                                 <div className="icon i-right c" onClick={this.nextTrack}>
                                     <Icon type="step-forward" />
                                 </div>
-                                <div className="icon i-right" onClick={this.isFavorite}>
+                                <div className="icon i-right" onClick={this.setFavorite(this.currentSong)}>
                                     {/* <Icon type="menu-fold" /> */}
-                                    <Icon type={isFavoriteIcon} style={this.state.favorite === true ? {color:'#d93f30'} : {color:'#fff'}}/>
+                                    <Icon type={this.getFavoriteIcon(this.currentSong)} style={this.isFavorite(this.currentSong) === true ? {color:'#d93f30'} : {color:'#fff'}}/>
                                 </div>
                             </div>
                         </div>
