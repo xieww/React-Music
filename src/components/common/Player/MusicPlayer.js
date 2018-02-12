@@ -1,7 +1,7 @@
 import React from "react"
 import Player from "../../../reduxs/containers/Player";
 import PlayerList from "../../../reduxs/containers/PlayerList";
-
+import HistoryRecord from "../../../reduxs/containers/HistoryRecord";
 
 
 class MusicPlayer extends React.Component {
@@ -12,6 +12,7 @@ class MusicPlayer extends React.Component {
 			show: false,  //控制播放列表显示和隐藏
 			fullPlayerModes: 0, //播放模式
 			fullplayerStatus: false, //全局播放状态
+			isShow: false,
 		}
 	};
 
@@ -58,7 +59,20 @@ class MusicPlayer extends React.Component {
 		this.setState({
 			fullplayerStatus: fullStatus,
 		});
-	}
+	};
+
+	/**
+	 * @author xieww
+	 * @description 管理增加歌曲页面是否显示状态
+	 * @param {*} value 
+	 */
+	fullAddPage = (value) => {
+		console.log('=======value========' + value);
+		this.setState({
+			isShow: value,
+		});
+	};
+
 	render() {
 		return (
 			<div className="music-player">
@@ -76,6 +90,11 @@ class MusicPlayer extends React.Component {
 					fullPlayerModes={this.state.fullPlayerModes}
 					fullplayStatus={this.fullplayStatus}
 					fullplayerStatus={this.state.fullplayerStatus}
+					isShowAddPage={this.fullAddPage}
+					/>
+				<HistoryRecord
+					isShowAddPage={this.fullAddPage}
+					isShow={this.state.isShow}
 					/>
 			</div>
 		);

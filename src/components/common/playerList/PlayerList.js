@@ -7,7 +7,7 @@ import { playModeNum } from "../../../Api/config";
 import Scroll from "../../../utils/scroll";
 import "../Player/commons.less";
 import "./PlayerList.less";
-import HistoryRecord from "../HistoryRecord/HistoryRecord";
+// import HistoryRecord from "../HistoryRecord/HistoryRecord";
 
 const alert = Modal.alert;
 
@@ -28,9 +28,8 @@ class PlayerList extends Component {
         super(props);
         this.state = {
             showList: false,
-            modal2: true,
+            isShow: false,
             currentPlayMode: 0,
-            
         };
         this.playModes = ["circle-loops", "singles-cicle", "random-play"];
         this.changeIndex = {
@@ -143,10 +142,29 @@ class PlayerList extends Component {
 		);
 	}
 
+    /**
+     * @author xieww
+     * @description 打开增加歌曲页面
+     * @param {*} value 
+     */
+    openPages = () =>{
+        this.props.isShowAddPage(true);
+    };
+    /**
+     * @author xieww
+     * @description 添加歌曲列表是否显示
+     * @param {*} value 
+     */
+    addPages = (value) => {
+        this.setState({
+            isShow: value,
+        });
+    };
+
     render() {
-        console.log('22222222222222222',this.props);
+        // console.log('22222222222222222',this.props);
         let playModesText = this.state.currentPlayMode === playModeNum.sequence ? "顺序播放" : this.state.currentPlayMode === playModeNum.loop ? "单曲循环" : "随机播放";
-        let isShowList = this.state.showList === true ? {display: 'block'} : {display: 'none'};
+
         let titleText = playModesText + "(" +this.props.playSongs.length + "首)";
         let playList = this.props.playSongs;
         
@@ -207,7 +225,7 @@ class PlayerList extends Component {
                                         <h1 className="title-top">
                                             <Icon type={this.playModes[this.state.currentPlayMode]} className="title-icon" onClick={this.changePlayMode}/>
                                             <span className="text">{titleText}</span>
-                                            <Icon type="plus-square-o" className="add-music"/>
+                                            <Icon type="plus-square-o" className="add-music" onClick={this.openPages}/>
                                             <Icon type="delete" className="icon-clear" 
                                                 onClick={this.removeAllSongs}/>
                                         </h1>
@@ -229,7 +247,7 @@ class PlayerList extends Component {
                                 </div>
                             </List>
                         </Modal>
-                        <HistoryRecord
+                        {/* <HistoryRecord
                             playHistory={this.props.playHistory}
                             searchHistory={this.props.searchHistory}
                             setSongs={this.props.setSongs}
@@ -237,7 +255,9 @@ class PlayerList extends Component {
                             changeCurrentSong={this.props.changeCurrentSong}
                             playSongs={this.props.playSongs}
                             currentSong={this.props.currentSong}
-                        />
+                            isShowAddPage={this.addPages}
+                            isShow={this.state.isShow}
+                        /> */}
                     </div>
                 </CSSTransition>
             </div>

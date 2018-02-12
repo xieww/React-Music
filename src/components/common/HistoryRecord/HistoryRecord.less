@@ -1,67 +1,83 @@
 .history-record{
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    width: 100%;
-    z-index: 200;
-    background: #2A4F56;
+    // position: fixed;
+    // position: absolute;
+    // top: 0;
+    // bottom: 0;
+    // width: 100%;
+    // z-index: 1000;
+    // background: #2A4F56;
     // display: none;
-    .history-header {
-        position: relative;
-        height: 44px;
-        text-align: center;
-        .title {
-            line-height: 44px;
-            font-size: 18px;
-            color: #fff;
-        }
-        .close {
-            position: absolute;
-            top: 5px;
-            left: 6px;
-            color: #fff;
-        }
-    }
-    .search-box {
-        // margin: 5px 15px 5px 15px;
-        .am-search {
-            background-color: #2A4F56;
-            .am-search-input {
-                // background-color: #1E484F;
-                background-color: #4A585F;
+    // &.hidden {
+    //     display: none;    
+    // }
+
+    .history-page {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 1000;
+        background: #2A4F56;
+
+        .history-header {
+            position: relative;
+            height: 44px;
+            text-align: center;
+            .title {
+                line-height: 44px;
+                font-size: 18px;
+                color: #fff;
+            }
+            .close {
+                position: absolute;
+                top: 5px;
+                left: 6px;
+                color: #fff;
             }
         }
-    }
-    .history-body {
-        padding-top: 5px;
-        .list-select {
-            position: absolute;
-            top: 135px;
-            bottom: 0;
-            width: 100%;
-            // .list-scroll {
-            //     height: 100%;
-            //     overflow: hidden;
-            // }
-            .search-l {
-                height: 100%;
-                overflow: hidden;
-                .play-history{
-                    padding: 20px 30px;
+        .search-box {
+            // margin: 5px 15px 5px 15px;
+            .am-search {
+                background-color: #2A4F56;
+                .am-search-input {
+                    // background-color: #1E484F;
+                    background-color: #4A585F;
                 }
             }
-            .search-r {
-                height: 100%;
-                overflow: hidden;
-                .search-history{
-                    padding: 20px 30px;
-                    // height: 100%;
-                    // overflow: hidden;
+        }
+        .history-body {
+            padding-top: 5px;
+            .list-select {
+                position: absolute;
+                top: 135px;
+                bottom: 0;
+                width: 100%;
+                .scroll-view {
+                    height: 100%;
+                    overflow: hidden;
+                    .search-history{
+                        padding: 20px 30px;
+                    }
                 }
+                .search-l {
+                    height: 100%;
+                    overflow: hidden;
+                    .play-history{
+                        padding: 20px 30px;
+                    }
+                }
+                // .search-r {
+                //     height: 100%;
+                //     overflow: hidden;
+                //     .search-history{
+                //         padding: 20px 30px;
+                //     }
+                // }
+                // // .history-list {
+                //     padding: 20px 30px;
+                // }
             }
-            // .history-list {
-            //     padding: 20px 30px;
-            // }
         }
     }
 }
