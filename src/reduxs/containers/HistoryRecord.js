@@ -1,7 +1,7 @@
 import {connect} from "react-redux";
 import {changeSong, removeSong, removeALLSong, showPlayer, setSongs, saveSearch, deleteSearch, clearSearch} from "../actions/actions";
 import HistoryRecord from "../../components/common/HistoryRecord/HistoryRecord";
-import {loadSearch, loadPlay} from '../../utils/localCache';
+import {loadPlay} from '../../utils/localCache';
 
 //映射Redux全局的state到组件的props上
 const mapStateToProps = (state) => ({

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { CSSTransition } from "react-transition-group"
 import ReactDOM from "react-dom";
-import { NavBar,  Carousel, Toast } from 'antd-mobile';
+import { Toast } from 'antd-mobile';
 import { Icon } from 'antd';
 import Scroll from "../../../utils/scroll";
 import  ProgressBar from "../ProgressBar/ProgressBar";
@@ -26,7 +26,6 @@ import { Song } from "../../../model/song";
 // 	return timeStr;
 // };
 
-const isMove = "navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/Windows Phone/i";
 class Player extends Component {
     constructor(props) {
         super(props);
@@ -452,20 +451,14 @@ class Player extends Component {
 
 
         song.playStatus = this.state.playStatus;
-        
-        let favoriteHistory = this.props.favoriteHistory;
-        
-
-        // console.log('this.props.currentSong',this.props.currentSong);
-        // console.log('this.props.playSongs',this.props.playSongs);
+           
         // console.log('==========this.props============',this.props);
         //播放按钮样式
         let playButtonClass = this.state.playStatus === true ? "pause-circle-o" : "play-circle-o";
-        let isFavoriteIcon = this.state.favorite === true ? "heart" : "heart-o";
-
+   
         let isFullScreen = this.state.fullScreen === true ? {} : {display:'none'};
         let isNotFullScreen = this.state.isNotFullScreen === true ? {} : {display:'none'};
-        let isRorate = this.state.playStatus === true ? "cd rotate" : "cd pause";
+        // let isRorate = this.state.playStatus === true ? "cd rotate" : "cd pause";
         return (
             <div className="player-page">
                 <CSSTransition in={this.props.showStatus} timeout={300} classNames="player-rotate"
@@ -482,7 +475,7 @@ class Player extends Component {
 					}} name="normal">
                     <div className="normal-player"  style={isFullScreen} ref="NormalPlayer">
                         <div className="player-bg">
-                            <img ref="playerBg" height="100%" width="100%" src={playBg}/>
+                            <img ref="playerBg" height="100%" width="100%" src={playBg} alt={song.name}/>
                         </div>
                         <div className="top">
                             <div className="back" onClick={this.hidePlayer}>
@@ -567,7 +560,7 @@ class Player extends Component {
 					}} name="mini">
                     <div className="mini-player" style={isNotFullScreen} onClick={this.showPlayer} ref="miniPlayer">
                         <div className="mini-icon" ref="singerImgMini">
-                            <img width="40" height="40" src={playBg}/>
+                            <img width="40" height="40" src={playBg} alt={song.name}/>
                         </div>
                         <div className="text">
                             <h2 className="name">{song.name}</h2>

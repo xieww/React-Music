@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import { Link,withRouter,Route } from "react-router-dom";
+import { withRouter,Route } from "react-router-dom";
 import LazyLoad, { forceCheck } from "react-lazyload";
 import Scroll from "../../../utils/scroll";
 import  "./ListView.less";
-import SingerDetail from "../../SingerList/SingerDetail";
 import Singer from "../../../reduxs/containers/singer";
 
 

@@ -154,7 +154,6 @@ class SearchPage extends Component {
     
     //type为2时是歌手
     if (data.zhida && data.zhida.type === 2) {
-      
       ret.push({
         ...data.zhida, 
         ...{type: TYPE_SINGER[1]},
@@ -167,7 +166,7 @@ class SearchPage extends Component {
         ...{img: `http://y.gtimg.cn/music/photo_new/T002R68x68M000${data.zhida.albummid}.jpg?max_age=2592000`}
       });
     }else {    //type为0时是歌曲
-      ret
+      ret;
     }
     if (data.song) {
       ret = ret.concat(this.normalizeSongs(data.song.list))
@@ -402,13 +401,6 @@ class SearchPage extends Component {
               </div>
             </Scroll>
           </div>
-          {/* <div className="no-result" style={{display: this.state.noResult === true && this.state.searchResult.length === 0 ? "none" : "block"}}>
-            <Result
-              img={<Icon type="check-circle" className="spe" style={{ fill: '#1F90E6' }} />}
-              title="暂无数据"
-              message={<div>没有搜索到相关内容/div>}
-            />
-          </div> */}
       </div>
     );
   }

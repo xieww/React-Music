@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Icon} from 'antd';
-import { Toast,SearchBar,SegmentedControl, PullToRefresh ,NoticeBar , Modal} from 'antd-mobile';
+import { SegmentedControl } from 'antd-mobile';
 import { withRouter } from "react-router-dom"
 import Scroll from "../../utils/scroll";
 import SongItem from "../common/SongItem/SongItem";
@@ -63,7 +63,6 @@ class UserCenter extends Component {
    * @param {*} e
    */
   selectList = e => {
-    console.log("索引" + e.nativeEvent.selectedSegmentIndex);
     this.setState({
       selectedIndexs: e.nativeEvent.selectedSegmentIndex
     });
@@ -97,12 +96,24 @@ class UserCenter extends Component {
     this.props.showMusicPlayer(true);
   };
 
+  /**
+   * @author xieww
+   * @description 返回上一级
+   * @param {*} 
+   */
+  BacktoPrevious = () => {
+    this.setState({
+      show: false
+    });
+    this.props.history.goBack();
+  }
+
   render() {
     // console.log("===========", this.props, this.props.favoriteHistory,this.props.playHistory);
     return (
-      <CSSTransition in={this.state.show} timeout={300} classNames="translate">
+      <CSSTransition in={this.state.show} timeout={800} classNames="translate">
         <div className="user-center">
-          <div className="back" onClick={() => this.props.history.goBack()}>
+          <div className="back" onClick={this.BacktoPrevious}>
             <Icon type="left" />
           </div>
           <div className="switch-wrapper">

@@ -67,7 +67,7 @@ function songs(songs = initialState.songs, action) {
 			let newSongs = songs.filter(song => song.id !== action.id);
 			return newSongs;
 		case ActionTypes.REMOVE_ALLSONG_FROM_LIST:
-			let newSongss = songs.splice(0);
+			songs.splice(0);
 			return songs;
 		default:
 			return songs;

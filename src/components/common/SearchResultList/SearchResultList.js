@@ -78,7 +78,7 @@ class SearchResultList extends Component {
     render() {
 
         // console.log('this.props',this.props);
-        let {match} = this.props;
+        // let {match} = this.props;
         let singer = this.props.singer;
         let album = this.props.album;
 

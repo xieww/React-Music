@@ -8,13 +8,10 @@ import { CODE_SUCCESS } from "../../Api/config";
 import * as SingerModel from "../../model/singer";
 import * as SongModel from "../../model/song";
 import MyLoading from "../common/Loading/Loading";
-// import { prefixStyle } from "../../utils/dom";
-// import { getSongVKey } from "../../Api/song";
 import "./SingerDetail.less";
 import SongItem from "../common/SongItem/SongItem";
-import LazyLoad, { forceCheck } from "react-lazyload";
 import Scroll from "../../utils/scroll";
-import { Button, Icon } from 'antd';
+import { Button} from 'antd';
 
 
 // const RESERVED_HEIGHT = 40;

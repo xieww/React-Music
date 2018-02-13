@@ -1,27 +1,14 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import { CSSTransition } from "react-transition-group"
-import { Modal, List, Button, WhiteSpace, WingBlank, Toast} from 'antd-mobile';
+import { Modal, List, Button, Toast} from 'antd-mobile';
 import { Icon } from 'antd';
 import { playModeNum } from "../../../Api/config";
 import Scroll from "../../../utils/scroll";
 import "../Player/commons.less";
 import "./PlayerList.less";
-// import HistoryRecord from "../HistoryRecord/HistoryRecord";
 
 const alert = Modal.alert;
-
-function closest(el, selector) {
-    const matchesSelector = el.matches || el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
-    while (el) {
-      if (matchesSelector.call(el, selector)) {
-        return el;
-      }
-      el = el.parentElement;
-    }
-    return null;
-  };
-
 
 class PlayerList extends Component {
     constructor(props) {
@@ -166,8 +153,7 @@ class PlayerList extends Component {
         let playModesText = this.state.currentPlayMode === playModeNum.sequence ? "顺序播放" : this.state.currentPlayMode === playModeNum.loop ? "单曲循环" : "随机播放";
 
         let titleText = playModesText + "(" +this.props.playSongs.length + "首)";
-        let playList = this.props.playSongs;
-        
+      
         let songPlayList = "";
         songPlayList = this.props.playSongs.map((item,index) => {
             let isCurrent = false;

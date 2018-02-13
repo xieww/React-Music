@@ -4,7 +4,7 @@ import { getCarouseList, getDiscList, getNewAlbum } from "../../Api/recommend";
 import { CODE_SUCCESS } from "../../Api/config";
 import Scroll from "../../utils/scroll";
 import { Carousel} from "antd-mobile";
-import { Button, Icon } from 'antd';
+import { Icon } from 'antd';
 import 'antd/dist/antd.css'; 
 import { withRouter,Route } from "react-router-dom";
 import DiscList from '../DiscList/DiscList';
@@ -12,8 +12,6 @@ import MyLoading from "../common/Loading/Loading";
 import LazyLoad, { forceCheck } from "react-lazyload";
 import * as AlbumModel from "../../model/album";
 import AlbumList from "../Album/AlbumList";
-import DiscListDetail from "../DiscList/DiscListDetail";
-import AlbumDetail from "../Album/AlbumDetail";
 import Album from "../../reduxs/containers/Album";
 import Disc from "../../reduxs/containers/Disc";
 

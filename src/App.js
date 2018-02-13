@@ -6,7 +6,7 @@ import RankingList from "./components/RankingList/RankingList";
 // import Search from "./components/SearchPage/SearchPage";
 import Search from "./reduxs/containers/search";
 import SingerList from "./components/SingerList/SingerList";
-import {BrowserRouter as Router, Route, Switch, Redirect, NavLink} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 // import Player from "./components/common/Player/Player";
 import "./App.less";
 import MusicPlayer from "./components/common/Player/MusicPlayer";

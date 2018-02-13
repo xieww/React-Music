@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link,withRouter,Route } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import ReactDOM from "react-dom";
 import Scroll from "../../utils/scroll";
 import { getSingerList } from "../../Api/singer";
@@ -140,7 +140,7 @@ class SingerList extends Component {
 	}
     render() {
         // console.log('this.state.singerList:',this.state.singerList);
-        let {match} = this.props;
+        // let {match} = this.props;
         let singerTypeItem = '';
         singerTypeItem = this.state.singerType.map((item,index) => {
             return (

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {BrowserRouter as Router, Route, Switch, Redirect, NavLink} from "react-router-dom"
+import { NavLink } from "react-router-dom"
 import "./TabMenu.less";
 
 const tabs = [{ title: "推荐",to:"/recommend" }, { title: "歌手", to:"/singer"}, { title: "排行榜", to:"/rankinglist"},{ title: "搜索" ,to:"/search"}];

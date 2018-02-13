@@ -1,7 +1,7 @@
 import {connect} from "react-redux";
 import {showPlayer, changeSong, saveFavorite, deleteFavorite} from "../actions/actions";
 import Player from "../../components/common/Player/Player";
-import {loadSearch, loadPlay, loadFavorite} from '../../utils/localCache';
+import {loadPlay} from '../../utils/localCache';
 
 //映射Redux全局的state到组件的props上
 const mapStateToProps = (state) => ({

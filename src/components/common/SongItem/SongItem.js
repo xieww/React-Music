@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { List, Badge,Icon,  ActionSheet, Toast} from 'antd-mobile';
-import { Button } from 'antd';
+import { Badge,Icon,Toast} from 'antd-mobile';
 import "./SongItem.less";
 
 // const isIPhone = new RegExp('\\biPhone\\b|\\biPod\\b', 'i').test(window.navigator.userAgent);
@@ -20,28 +19,11 @@ class SongItem extends Component {
       };
     };
 
-    dataList = [
-        { url: 'OpHiXAcYzmPQHcdlLFrc', title: '发送给朋友' },
-        { url: 'wvEzCMiDZjthhAOcwTOu', title: '新浪微博' },
-        { url: 'cTTayShKtEIdQVEMuiWt', title: '生活圈' },
-        { url: 'umnHwvEgSyQtXlZjNJTt', title: '微信好友' },
-        { url: 'SxpunpETIwdxNjcJamwB', title: 'QQ' },
-      ].map(obj => ({
-        icon: <img src={`https://gw.alipayobjects.com/zos/rmsportal/${obj.url}.png`} alt={obj.title} style={{ width: 36 }} />,
-        title: obj.title,
-    }));
-
-    // showShareActionSheetMulpitleLine = () => {
-    //     // const data = [[...this.dataList, this.dataList[2]]];
-    //     ActionSheet.showShareActionSheetWithOptions({
-    //       options: this.dataList,
-    //       message: 'I am description, description, description',
-    //     },
-    //     (buttonIndex) => {
-    //       this.setState({ clicked2: buttonIndex > -1 ? this.dataList[buttonIndex].title : 'cancel'});
-    //     });
-    // }
-
+    /**
+     * @author xieww
+     * @description 渲染排行榜图标
+     * @param {*} index 
+     */
     getRankCls(index) {
         if (index <= 2) {
           return `icon icon${index}`
@@ -106,7 +88,7 @@ class SongItem extends Component {
         songItems = this.props.list.map((item,index) => {
 
             let pItem = "";
-            if (item.albumdesc != "") {
+            if (item.albumdesc !== "") {
                 pItem = <p className="song-info">{item.singer}·{item.album}·{item.albumdesc}</p>;
             } else {
                 pItem = <p className="song-info">{item.singer}·{item.album}</p>;

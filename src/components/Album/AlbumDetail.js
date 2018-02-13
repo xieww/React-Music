@@ -7,10 +7,9 @@ import * as SongModel from "../../model/song";
 import { CSSTransition } from "react-transition-group";
 import NavHeadBar from "../common/NavHeaderBar/NavHeadBar";
 import MyLoading from "../common/Loading/Loading";
-import SongItem from "../common/SongItem/SongItem";
-import LazyLoad, { forceCheck } from "react-lazyload";
+import SongItem from "../common/SongItem/SongItem"
 import Scroll from "../../utils/scroll";
-import { Button, Icon } from 'antd';
+import { Button } from 'antd';
 import * as AlbumModel from "../../model/album";
 import "./AlbumDetail.less";
 

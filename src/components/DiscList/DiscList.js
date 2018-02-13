@@ -8,7 +8,6 @@ import { CODE_SUCCESS } from "../../Api/config";
 import Scroll from "../../utils/scroll";
 import MyLoading from "../common/Loading/Loading";
 import LazyLoad, { forceCheck } from "react-lazyload"
-import DiscListDetail from "./DiscListDetail";
 import Disc from "../../reduxs/containers/Disc";
 
 class DiscList extends Component {

@@ -2,7 +2,7 @@ import {connect} from "react-redux"
 import {showPlayer, changeSong, setSongs, saveSearch, deleteSearch, clearSearch} from "../actions/actions"
 import Search from "../../components/SearchPage/SearchPage";
 
-import {loadSearch, loadPlay, loadFavorite} from '../../utils/localCache';
+// import {loadSearch, loadPlay, loadFavorite} from '../../utils/localCache';
 
 //映射Redux全局的state到组件的props上
 const mapStateToProps = (state) => ({

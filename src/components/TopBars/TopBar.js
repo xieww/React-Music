@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {Icon} from 'antd';
-import { withRouter,Route, NavLink } from "react-router-dom";
-import UserCenter from "../UserCenter/UserCenter";
+import { withRouter,NavLink } from "react-router-dom";
 import './Topbar.less';
 import "../../images/commons.less";
 
@@ -12,7 +11,6 @@ class TopBars extends Component {
   }
 
   render() {
-      let {match} = this.props;
     return (
       <header className="headerBar" onClick={e => e.stopPropagation()}>
         {/* <i className="music_logo">IMusic音乐</i> */}

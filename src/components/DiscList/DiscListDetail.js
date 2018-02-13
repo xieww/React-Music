@@ -8,9 +8,8 @@ import { CSSTransition } from "react-transition-group";
 import NavHeadBar from "../common/NavHeaderBar/NavHeadBar";
 import MyLoading from "../common/Loading/Loading";
 import SongItem from "../common/SongItem/SongItem";
-import LazyLoad, { forceCheck } from "react-lazyload";
 import Scroll from "../../utils/scroll";
-import { Button, Icon } from 'antd';
+import { Button } from 'antd';
 import "./DiscListDetail.less";
 
 class DiscListDetail extends Component {

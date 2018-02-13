@@ -67,7 +67,6 @@ class MusicPlayer extends React.Component {
 	 * @param {*} value 
 	 */
 	fullAddPage = (value) => {
-		console.log('=======value========' + value);
 		this.setState({
 			isShow: value,
 		});
