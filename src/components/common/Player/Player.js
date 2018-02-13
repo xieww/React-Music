@@ -458,7 +458,7 @@ class Player extends Component {
 
         // console.log('this.props.currentSong',this.props.currentSong);
         // console.log('this.props.playSongs',this.props.playSongs);
-        console.log('==========this.props============',this.props);
+        // console.log('==========this.props============',this.props);
         //播放按钮样式
         let playButtonClass = this.state.playStatus === true ? "pause-circle-o" : "play-circle-o";
         let isFavoriteIcon = this.state.favorite === true ? "heart" : "heart-o";

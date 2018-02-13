@@ -35,7 +35,7 @@ class SearchHistory extends Component {
     }
 
     render() {
-        console.log('list',this.props);
+        // console.log('list',this.props);
         let historyItem = "";
         historyItem = this.props.list.map((item,index) => {
             return (

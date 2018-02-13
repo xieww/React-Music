@@ -7,9 +7,11 @@ import RankingList from "./components/RankingList/RankingList";
 import Search from "./reduxs/containers/search";
 import SingerList from "./components/SingerList/SingerList";
 import {BrowserRouter as Router, Route, Switch, Redirect, NavLink} from "react-router-dom";
-import Player from "./components/common/Player/Player";
+// import Player from "./components/common/Player/Player";
 import "./App.less";
 import MusicPlayer from "./components/common/Player/MusicPlayer";
+// import UserCenter from "./components/UserCenter/UserCenter";
+import UserCenter from "./reduxs/containers/UserCenter";
 
 class App extends Component {
 
@@ -33,7 +35,8 @@ class App extends Component {
                   <Route path="/singer" component={SingerList} />
                   <Route path="/rankinglist" component={RankingList} />
                   <Route path="/search" component={Search} /> 
-                  <Route path="/player" component={Player} />
+                  <Route path="/usercenter" component={UserCenter} /> 
+                  {/* <Route path="/player" component={Player} /> */}
                   <Redirect from="/" to="/recommend" />
                   <Route component={Recommend} />
                 </Switch>
