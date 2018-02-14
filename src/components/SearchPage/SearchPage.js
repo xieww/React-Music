@@ -13,6 +13,8 @@ import * as AlbumModel from "../../model/album";
 import { getLyric } from "../../Api/song";
 import SearchResultList from "../common/SearchResultList/SearchResultList";
 import SearchHistory from "../common/SearchHistory/SearchHistory";
+import NoResult from "../common/NoResult/NoResult";
+import MyLoading from "../common/Loading/Loading";
 
 // const TYPE_SINGER = 'singer';
 const perpage = 20;
@@ -52,6 +54,7 @@ class SearchPage extends Component {
         if (res.code === CODE_SUCCESS) {
           this.setState({
             hotkeylist: res.data.hotkey.slice(0,10),
+            loadings: false
           })
         }
       }
@@ -101,7 +104,7 @@ class SearchPage extends Component {
           //     songList = result;
           //   }
           // };
-          this.getLyricData('001PEDwK3D53Qj');
+          // this.getLyricData('001PEDwK3D53Qj');
           let tempTypes = res.data.zhida;
           let singer = {};
           let album = {};
@@ -318,7 +321,7 @@ class SearchPage extends Component {
     // this.setState({
     //   height: hei,
     // });
-    this.getLyricData('001PEDwK3D53Qj');
+    // this.getLyricData('001PEDwK3D53Qj');
   };
 
   render() {
@@ -345,7 +348,7 @@ class SearchPage extends Component {
               onChange={this.onChange}
               onClear={this.clear}
               onSubmit={() => {
-                this.getSearchData;
+                this.getSearchData(this.state.keyword);
                 this.props.saveSearch(this.state.keyword);
                 }}
             />
@@ -377,7 +380,7 @@ class SearchPage extends Component {
           </div>
           <div className="results" style={{display: this.state.keyword ? "block" : "none"}}>
             <Scroll ref="scroll">
-              <div>
+              <div className="result-yes">
                 <PullToRefresh
                   ref={el => this.ptr = el}
                   style={{
@@ -399,8 +402,12 @@ class SearchPage extends Component {
                     />
                 </PullToRefresh>
               </div>
+              {/* <div className="no-result-wrapper" style={{display: this.state.searchResult.length === 0 ? "block" : "none"}}>
+                  <NoResult info="抱歉，暂无搜索结果"/>
+              </div> */}
             </Scroll>
           </div>
+          <MyLoading isloading={this.state.loadings}/>
       </div>
     );
   }

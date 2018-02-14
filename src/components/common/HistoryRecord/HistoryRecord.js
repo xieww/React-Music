@@ -296,7 +296,7 @@ class HistoryRecord extends Component {
                     onChange={this.onChange} 
                     onClear={this.clear} 
                     onSubmit={() => {
-                      this.getSearchData();
+                      this.getSearchData(this.state.keyword);
                       this.props.saveSearch(this.state.keyword);
                     }}
                   />

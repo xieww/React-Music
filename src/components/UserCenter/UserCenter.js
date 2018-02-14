@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Icon} from 'antd';
+import { Icon } from 'antd';
 import { SegmentedControl } from 'antd-mobile';
 import { withRouter } from "react-router-dom"
 import Scroll from "../../utils/scroll";
@@ -7,7 +7,7 @@ import SongItem from "../common/SongItem/SongItem";
 import { getSongVKey } from "../../Api/song";
 import { CODE_SUCCESS } from "../../Api/config";
 import { CSSTransition } from "react-transition-group";
-
+import NoResult from "../common/NoResult/NoResult";
 import "./UserCenter.less";
 
 class UserCenter extends Component {
@@ -106,7 +106,35 @@ class UserCenter extends Component {
       show: false
     });
     this.props.history.goBack();
-  }
+  };
+
+  /**
+   * @author xieww
+   * @description 处理无结果
+   * @param {*} 
+   */
+  noResult = () =>{
+    if (this.state.selectedIndexs === 0 && this.props.favoriteHistory.length === 0) {
+      return true;
+    } else if(this.state.selectedIndexs === 1 && this.props.playHistory.length === 0){
+      return true;
+    } else {
+      return ;
+    }
+  };
+  
+  /**
+   * @author xieeww
+   * @description 无结果显示
+   * @param {*} 
+   */
+  noResultDesc = () => {
+    if (this.state.selectedIndexs === 0) {
+      return '抱歉，您暂无收藏歌曲！';
+    } else {
+      return '您还没有听过歌曲！';
+    }
+  };
 
   render() {
     // console.log("===========", this.props, this.props.favoriteHistory,this.props.playHistory);
@@ -169,7 +197,9 @@ class UserCenter extends Component {
               </div>
             </Scroll>
           </div>
-          {/* 用户中心 */}
+          <div className="no-result-wrapper" style={{display: this.noResult() === true ? "block" : "none"}}>
+            <NoResult info={this.noResultDesc()}/>
+          </div>
         </div>
       </CSSTransition>
     );
