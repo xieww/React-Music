@@ -56,8 +56,8 @@ git clone https://github.com/xieww/React-Music.git
 ## 项目截图
 
 <p align="center">
-  <img src="https://github.com/xieww/React-Music/blob/master/screenshot/recommend.png" alt="recommend"/>
-  <img src="https://github.com/xieww/React-Music/blob/master/screenshot/album.png" alt="album"/>
+  <img src="/screenshot/recommend.png" alt="recommend"/>
+  <img src="./screenshot/album.png" alt="album"/>
 
   <img src="./screenshot/disc.png" alt="disc"/>
   <img src="./screenshot/discDetail.png" alt="discDetail"/>
