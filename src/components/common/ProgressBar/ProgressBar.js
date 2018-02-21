@@ -24,57 +24,75 @@ class ProgressBar extends Component {
         this.state = {
           show: false,
           slider: 0,
+          dragLen: 0
         };
         this.muiTheme = getMuiTheme({
 			palette: {
 				// accent1Color: deepOrange500
 			}
-		})
+        })
     };
 
     componentDidUpdate() {
-		//组件更新后重新获取进度条总宽度
-		if (!this.progressBarWidth) {
-            this.progressBarWidth = this.state.slider;
-            // console.log('this.progressBarWidth' + this.progressBarWidth);
-		}
+
 	}
 
     componentDidMount() {
-        // this.progressBarWidth = ReactDOM.findDOMNode(this.refs.progressValue);
-
-        let {disableButton, disableDrag, onDragStart, onDrag, onDragEnd} = this.props;
-        // console.log('this.props',this.props);
-        this.progressBarWidth = this.state.slider;
 
     };
+    componentWillReceiveProps(nextProps){
+        
+        let progress = nextProps.progress ;
+        if (!progress) {
+            progress = 0;
+        } 
+        
+        this.setState({
+            slider: progress,
+        });
 
+        // console.log('更新' ,nextProps, this.state.slider);
+    }
+    
+
+    /**
+     * @author xieww
+     * @description 设置进度条长度
+     * @param {*} event 
+     * @param {*} value 
+     */
     getProgressValue = (event,value) => {
         this.setState({
-            slider: value
+            slider: value,
+            dragLen: value
         });
-        // console.log('value',value);
-    }
-    render() {
+        // console.log('进度值' + value,this.state.dragLen);
+    };
+    
+    /**
+     * 
+     * @param {*} event 
+     * @param {*} progress 
+     */
+    startDragging(event,value){
+        // console.log('开始拖拽',event,value);
+        // this.props.onDrag(progress);
+    };
 
-        // let {progress, onDrag, onDragEnd}  = this.props;
-        let {progress, disableButton, disableDrag, onDragStart, onDrag, onDragEnd} = this.props;
-        if (progress !== 0) {
-            progress = 0;
-        }
-        if (this.state.slider) {
-            progress = this.state.slider;
-        }
-        // console.log('this.props.disableButton',this.props.disableButton);
-        //onDragStart onDragStop
+    endDragging() {
+        // this.props.onDragEnd();
+    }
+
+    render() {
+        // console.log('进度props',this.props);
         return (
             <MuiThemeProvider muiTheme={this.muiTheme}>
                 <div className="sliders">
                     <Slider 
-                        value={this.props.progress} 
+                        value={this.state.slider} 
                         onChange={this.getProgressValue}
-                        onDragStart={this.onDrag}
-                        onDragStop={this.onDragEnd}
+                        onDragStart={e => this.startDragging(e,this.state.slider)}
+                        onDragStop={this.endDragging()}
                     />
                     {/* <p>
                     <span>{'The value of this slider is: '}</span>

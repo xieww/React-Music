@@ -38,7 +38,10 @@ class Player extends Component {
 
           currentTime: 0, //当前播放时间
           playProgress: 0, // 当前播放进度
-          currentPlayMode: 0 // 当前播放模式
+          currentPlayMode: 0, // 当前播放模式
+
+          duration: 0,
+          time: 0
         };
         //当前播放歌曲和歌曲的位置
         this.currentSong = new Song( 0, "", "", "", 0, "", "", "", "", "");
@@ -48,7 +51,8 @@ class Player extends Component {
 		this.dragProgress = 0;
         this.isFirstPlay = true;
         //播放模式： circle-loops-顺序播放 singles-cicle-单曲循环 random-play-随机播放
-		this.playModes = ["circle-loops", "singles-cicle", "random-play"];
+        this.playModes = ["circle-loops", "singles-cicle", "random-play"];
+        
     };
 
     /**
@@ -239,26 +243,27 @@ class Player extends Component {
      * @param {*} interval 
      */
     getPlayTime(interval) {
-        interval = interval | 0
-        const minute = interval / 60 | 0
-        const second = this.format(interval % 60)
-        return `${minute}:${second}`
+        interval = interval | 0;
+        const minute = interval / 60 | 0;
+        const second = this.format(interval % 60);
+        return `${minute}:${second}`;
     };
 
     format(num, n = 2) {
-        let len = num.toString().length
+        let len = num.toString().length;
         while (len < n) {
-          num = '0' + num
-          len++
+          num = '0' + num;
+          len++;
         }
-        return num
+        return num;
     };
 
     /**
-	 * 开始拖拽
-	 */
-	handleDrag = (progress) => {
-        // console.log('progress',progress);
+     * @author xieww
+     * @description 开始拖拽进度条
+     * @param {*} progress 
+     */
+	handleDrag = (progress) =>{
 		if (this.audioDOM.duration > 0) {
 			this.audioDOM.pause();
 
@@ -270,10 +275,13 @@ class Player extends Component {
 			this.dragProgress = progress;
 		}
 	}
-	/**
-	 * 拖拽结束
-	 */
-	handleDragEnd = () => {
+
+    /**
+     * @author xieww
+     * @description 拖拽进度条结束
+     * @param {*} 
+     */
+	handleDragEnd =() =>{
 		if (this.audioDOM.duration > 0) {
 			let currentTime = this.audioDOM.duration * this.dragProgress;
 			this.setState({
@@ -377,7 +385,9 @@ class Player extends Component {
             if (this.state.playStatus === true) {
                 this.setState({
                     playProgress: this.audioDOM.currentTime / this.audioDOM.duration,
-                    currentTime: this.audioDOM.currentTime
+                    currentTime: this.audioDOM.currentTime,
+                    duration: this.audioDOM.duration,
+                    time: this.audioDOM.currentTime
                 });
             }
         }, false);
@@ -525,7 +535,11 @@ class Player extends Component {
                                     <ProgressBar 
                                         progress={this.state.playProgress}
                                         onDrag={this.handleDrag}
-                                        onDragEnd={this.handleDragEnd}/>
+                                        onDragEnd={this.handleDragEnd}
+                                        duration={this.state.duration}
+                                        time={this.state.time}
+                                        songDuration={song.duration}
+                                        />
                                 </div>
                                 <span className="time time-r">{this.getPlayTime(song.duration)}</span>
                             </div>
