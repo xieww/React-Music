@@ -23,7 +23,7 @@
     <img src="https://img.shields.io/badge/react--transition--group-v2.2.1-blue.svg" alt="react-transition-group">
   </a>
   <a href="https://github.com/jasonslyvia/react-lazyload">
-    <img src="https://img.shields.io/badge/react--lazyload-v2.3.0-yellow.svg" alt="react-lazyload">
+    <img src="https://img.shields.io/badge/react--lazyload-v2.3.0-blue.svg" alt="react-lazyload">
   </a>
   <a href="https://github.com/ustbhuangyi/storage">
     <img src="https://img.shields.io/badge/good--storage-v1.0.1-blue.svg" alt="good-storage">
