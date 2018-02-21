@@ -69,8 +69,6 @@ git clone https://github.com/xieww/React-Music.git
   <img src="./screenshot/singer.png" alt="singer"/>
   
   <img src="./screenshot/singerDetail.png" alt="singerDetail"/>
-  <img src="./screenshot/search.png" alt="search"/>
-
   <img src="./screenshot/fullPlayer.png" alt="fullPlayer"/>
   <img src="./screenshot/miniPlayer.png" alt="miniPlayer"/>
 
