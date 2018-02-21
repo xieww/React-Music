@@ -56,29 +56,21 @@ git clone https://github.com/xieww/React-Music.git
 ## 项目截图
 
 <p align="center">
-  <img src="/screenshot/recommend.png" alt="recommend"/>
-  <img src="./screenshot/album.png" alt="album"/>
-
-  <img src="./screenshot/disc.png" alt="disc"/>
-  <img src="./screenshot/discDetail.png" alt="discDetail"/>
-
-  <img src="./screenshot/ranking.png" alt="ranking"/>
-  <img src="./screenshot/rankingDetail.png" alt="rankingDetail"/>
-
-  <img src="./screenshot/rankingDetail01.png" alt="排行榜详情"/>
-  <img src="./screenshot/singer.png" alt="singer"/>
-  
-  <img src="./screenshot/singerDetail.png" alt="singerDetail"/>
-  <img src="./screenshot/fullPlayer.png" alt="fullPlayer"/>
-  <img src="./screenshot/miniPlayer.png" alt="miniPlayer"/>
-
-  <img src="./screenshot/myFavorite.png" alt="myFavorite"/>
-  <img src="./screenshot/playerList.png" alt="playerList"/>
-
-  <img src="./screenshot/playHistory.png" alt="playHistory"/>
-  <img src="./screenshot/noResult.png" alt="noResult"/>
-
-  <img src="./screenshot/recentListen.png" alt="recentListen"/>
-  <img src="./screenshot/searchResult.png" alt="searchResult"/>
+    <img src="/screenshot/recommend.png" alt="recommend"/>
+    <img src="./screenshot/ranking.png" alt="ranking"/>
+    <img src="./screenshot/singer.png" alt="singer"/>
+    <img src="./screenshot/search.png" alt="search"/>
+    <img src="./screenshot/album.png" alt="album"/>
+    <img src="./screenshot/disc.png" alt="disc"/>
+    <img src="./screenshot/discDetail.png" alt="discDetail"/>
+    <img src="./screenshot/rankingDetail.png" alt="rankingDetail"/>
+    <img src="./screenshot/rankingDetail01.png" alt="排行榜详情"/>
+    <img src="./screenshot/singerDetail.png" alt="singerDetail"/>
+    <img src="./screenshot/fullPlayer.png" alt="fullPlayer"/>
+    <img src="./screenshot/miniPlayer.png" alt="miniPlayer"/>
+    <img src="./screenshot/myFavorite.png" alt="myFavorite"/>
+    <img src="./screenshot/playerList.png" alt="playerList"/>
+    <img src="./screenshot/noResult.png" alt="noResult"/>
+    <img src="./screenshot/searchResult.png" alt="searchResult"/>
   
 </p>
