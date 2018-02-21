@@ -17,8 +17,9 @@
 
 ## React-Music
 ## 注意：本项目只供学习，不可以商用。
+##如果觉得本项目还不错，请给个star鼓励一下。
 
-项目预览地址: https://xieww.github.io/React-Music.
+项目预览地址: https://xieww.github.io/React-Music.</p>
 扫码体验更方便:<img src="./screenshot/qr.png">
 
 ## 技术栈
@@ -35,7 +36,6 @@ git clone https://github.com/xieww/React-Music.git
 
 通过`npm`安装本地服务以及第三方依赖模块(需要已安装[Node.js](https://nodejs.org/))
 
-```
 国内npm比较慢，可以使用国内淘宝的cnpm(https://npm.taobao.org/)
 
 ### `npm install`
