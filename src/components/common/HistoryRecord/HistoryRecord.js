@@ -33,6 +33,7 @@ class HistoryRecord extends Component {
       hasMore: true,
       page: 1
     };
+    this.listenSongs = [];
   }
 
   /**
@@ -141,12 +142,29 @@ class HistoryRecord extends Component {
           let mid = "101qjdRZ4ZswWO";
           this.getSongUrl(song, mid);
         } else {
+          console.log("song", song);
           this.getSongUrl(song, item.songmid);
         }
         songs.push(song);
       }
     });
     return songs;
+  };
+
+  /**
+   * @author xiew
+   * @description 处理歌曲信息
+   * @param {*} list
+   */
+  processSongs = list => {
+    let TempSong = [];
+    list.forEach(item => {
+      if (item.id && item.mId) {
+        this.getSongUrl(item, item.mId);
+        TempSong.push(item);
+      }
+    });
+    return TempSong;
   };
 
   /**
@@ -270,67 +288,133 @@ class HistoryRecord extends Component {
   render() {
     // console.log("历史记录", this.props);
 
-    let isShowPageStyle = this.state.isShowPage === true ? {} : { display: "none" };
+    this.listenSongs = this.processSongs(this.props.playHistory);
+    let isShowPageStyle =
+      this.state.isShowPage === true ? {} : { display: "none" };
     return (
-        <div className="history-record">
-          <CSSTransition in={this.state.show} classNames="his" timeout={300} 
-            onEnter={() => {
-            }} 
-            onEntered={() => {
-              
-            }} 
-            onExited={() => {
-              this.historyPageDOM.style.display = "none";
-            }} name="historys">
-            <div ref="historyPage" className="history-page" style={isShowPageStyle}>
-              <div className="history-header">
-                <div className="close">
-                  <Icon type={"left"} size={"lg"} className="icon-back" onClick={this.closeHistoryPage} />
-                </div>
-                <h1 className="title">添加歌曲到列表</h1>
+      <div className="history-record">
+        <CSSTransition
+          in={this.state.show}
+          classNames="his"
+          timeout={300}
+          onEnter={() => {}}
+          onEntered={() => {}}
+          onExited={() => {
+            this.historyPageDOM.style.display = "none";
+          }}
+          name="historys"
+        >
+          <div
+            ref="historyPage"
+            className="history-page"
+            style={isShowPageStyle}
+          >
+            <div className="history-header">
+              <div className="close">
+                <Icon
+                  type={"left"}
+                  size={"lg"}
+                  className="icon-back"
+                  onClick={this.closeHistoryPage}
+                />
               </div>
-              <div className="search-box">
-                <SearchBar 
-                    placeholder="搜索歌曲、歌单、专辑" 
-                    value={this.state.keyword} 
-                    onChange={this.onChange} 
-                    onClear={this.clear} 
-                    onSubmit={() => {
-                      this.getSearchData(this.state.keyword);
-                      this.props.saveSearch(this.state.keyword);
-                    }}
-                  />
-              </div>
-              <div className="history-body" style={{display: this.state.keyword ? "none" : "block"}}>
-                <SegmentedControl values={["最近播放", "搜索历史"]} tintColor={"#31c27c"} style={{ height: "30px", width: "250px", margin: "0 auto" }} onChange={this.selectList} onValueChange={this.onValueChange} />
-                <div className="list-select">
-                  <div style={{ display: this.state.selectedIndexs === 0 ? "block" : "none" }} className="search-l">
-                    <Scroll className="list-scroll" ref="scrollPlay" refresh={this.state.isShowPage}>
-                      <div className="play-history">
-                        <SongItem list={this.props.playHistory} setSongs={this.props.setSongs} showMusicPlayer={this.props.showMusicPlayer} changeCurrentSong={this.props.changeCurrentSong} playSongs={this.props.playSongs} currentSong={this.props.currentSong} />
-                      </div>
-                    </Scroll>
-                  </div>
-                  <Scroll className="scroll-view" style={{ display: this.state.selectedIndexs === 1 ? "block" : "none" }} ref="scrollSearch" refresh={this.state.isShowPage}>
-                    <div className="search-history">
-                      <SearchHistory list={this.props.searchHistory} deleteSearch={this.props.deleteSearch} selectItem={this.selectSearchHistory} />
+              <h1 className="title">添加歌曲到列表</h1>
+            </div>
+            <div className="search-box">
+              <SearchBar
+                placeholder="搜索歌曲、歌单、专辑"
+                value={this.state.keyword}
+                onChange={this.onChange}
+                onClear={this.clear}
+                onSubmit={() => {
+                  this.getSearchData(this.state.keyword);
+                  this.props.saveSearch(this.state.keyword);
+                }}
+              />
+            </div>
+            <div
+              className="history-body"
+              style={{ display: this.state.keyword ? "none" : "block" }}
+            >
+              <SegmentedControl
+                values={["最近播放", "搜索历史"]}
+                tintColor={"#31c27c"}
+                style={{ height: "30px", width: "250px", margin: "0 auto" }}
+                onChange={this.selectList}
+                onValueChange={this.onValueChange}
+              />
+              <div className="list-select">
+                <div
+                  style={{
+                    display: this.state.selectedIndexs === 0 ? "block" : "none"
+                  }}
+                  className="search-l"
+                >
+                  <Scroll
+                    className="list-scroll"
+                    ref="scrollPlay"
+                    refresh={this.state.isShowPage}
+                  >
+                    <div className="play-history">
+                      <SongItem
+                        list={this.listenSongs}
+                        setSongs={this.props.setSongs}
+                        showMusicPlayer={this.props.showMusicPlayer}
+                        changeCurrentSong={this.props.changeCurrentSong}
+                        playSongs={this.props.playSongs}
+                        currentSong={this.props.currentSong}
+                      />
                     </div>
                   </Scroll>
                 </div>
-              </div>
-              <div className="results" style={{ display: this.state.keyword ? "block" : "none" }}>
-                <Scroll ref="scroll">
-                  <div>
-                    <PullToRefresh ref={el => (this.ptr = el)} style={{ height: "auto", overflow: "auto" }} onRefresh={this.searchMoreData} direction={this.state.down ? "down" : "up"}>
-                      <SearchResultList list={this.state.searchResult} singer={this.state.singer} album={this.state.album} setSongs={this.props.setSongs} showMusicPlayer={this.props.showMusicPlayer} changeCurrentSong={this.props.changeCurrentSong} playSongs={this.props.playSongs} currentSong={this.props.currentSong} />
-                    </PullToRefresh>
+                <Scroll
+                  className="scroll-view"
+                  style={{
+                    display: this.state.selectedIndexs === 1 ? "block" : "none"
+                  }}
+                  ref="scrollSearch"
+                  refresh={this.state.isShowPage}
+                >
+                  <div className="search-history">
+                    <SearchHistory
+                      list={this.props.searchHistory}
+                      deleteSearch={this.props.deleteSearch}
+                      selectItem={this.selectSearchHistory}
+                    />
                   </div>
                 </Scroll>
               </div>
             </div>
-          </CSSTransition>
-        </div>
-    )
+            <div
+              className="results"
+              style={{ display: this.state.keyword ? "block" : "none" }}
+            >
+              <Scroll ref="scroll">
+                <div>
+                  <PullToRefresh
+                    ref={el => (this.ptr = el)}
+                    style={{ height: "auto", overflow: "auto" }}
+                    onRefresh={this.searchMoreData}
+                    direction={this.state.down ? "down" : "up"}
+                  >
+                    <SearchResultList
+                      list={this.state.searchResult}
+                      singer={this.state.singer}
+                      album={this.state.album}
+                      setSongs={this.props.setSongs}
+                      showMusicPlayer={this.props.showMusicPlayer}
+                      changeCurrentSong={this.props.changeCurrentSong}
+                      playSongs={this.props.playSongs}
+                      currentSong={this.props.currentSong}
+                    />
+                  </PullToRefresh>
+                </div>
+              </Scroll>
+            </div>
+          </div>
+        </CSSTransition>
+      </div>
+    );
   }
 }
 
