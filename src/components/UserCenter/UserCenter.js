@@ -17,6 +17,8 @@ class UserCenter extends Component {
       selectedIndexs: 0,
       show: false,
     };
+    this.favoriteHistory = [];
+    this.listenSongs = [];
   }
 
   componentDidMount() {
@@ -82,12 +84,13 @@ class UserCenter extends Component {
    * @param {*}
    */
   randomPlay = () => {
-    let favoriteSongs = this.processSongs(this.props.favoriteHistory);
-    let listenSongs = this.processSongs(this.props.playHistory);
+    // let favoriteSongs = this.processSongs(this.props.favoriteHistory);
+    // let listenSongs = this.processSongs(this.props.playHistory);
+
     let list =
       this.state.selectedIndexs === 0
-        ? favoriteSongs
-        : listenSongs;
+        ? this.favoriteHistory
+        : this.listenSongs;
     if (list.length === 0) {
       return;
     }
@@ -136,8 +139,15 @@ class UserCenter extends Component {
     }
   };
 
+  componentDidMount(){
+
+  }
   render() {
     // console.log("===========", this.props, this.props.favoriteHistory,this.props.playHistory);
+
+   
+    this.favoriteHistory =  this.processSongs(this.props.favoriteHistory);
+    this.listenSongs = this.processSongs(this.props.playHistory);
     return (
       <CSSTransition in={this.state.show} timeout={800} classNames="translate">
         <div className="user-center">
@@ -168,7 +178,7 @@ class UserCenter extends Component {
               <Scroll className="scroll-favo" ref="scrollFavorite">
                 <div className="favorite-list">
                   <SongItem
-                    list={this.props.favoriteHistory}
+                    list={this.favoriteHistory}
                     setSongs={this.props.setSongs}
                     showMusicPlayer={this.props.showMusicPlayer}
                     changeCurrentSong={this.props.changeCurrentSong}
@@ -187,7 +197,7 @@ class UserCenter extends Component {
             >
               <div className="play-list">
                 <SongItem
-                  list={this.props.playHistory}
+                  list={this.listenSongs}
                   setSongs={this.props.setSongs}
                   showMusicPlayer={this.props.showMusicPlayer}
                   changeCurrentSong={this.props.changeCurrentSong}
