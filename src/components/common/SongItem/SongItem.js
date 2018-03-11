@@ -117,7 +117,6 @@ class SongItem extends Component {
                                 lineHeight: 1.5
                                 }}
                             />
-                            {/* <span className="tags">{item.isonly === 1 ? "独家" : ""}</span> */}
                         </h2>
                         {pItem}
                     </div>
